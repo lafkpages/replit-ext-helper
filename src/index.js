@@ -1,4 +1,7 @@
 (function () {
+  /**
+   * @satisfies {AssignToQueryData}
+   */
   const defaultAssignToQueryData = {
     classes: [],
     multiple: false,
