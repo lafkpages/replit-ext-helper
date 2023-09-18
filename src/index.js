@@ -192,14 +192,25 @@
     main();
   });
 
+  let forceDesktop = false;
   const api = {
     main,
     debug: false,
     get isDesktop() {
       return (
+        forceDesktop ||
         // @ts-expect-error - `replitDesktop` is not defined in the browser
         window.replitDesktop?.version?.length > 0
       );
+    },
+    set isDesktop(value) {
+      if (value === true) {
+        forceDesktop = true;
+      } else if (value === null) {
+        forceDesktop = false;
+      } else {
+        throw new TypeError("isDesktop can only be set to true or null");
+      }
     },
   };
 
