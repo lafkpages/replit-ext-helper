@@ -174,6 +174,7 @@
   });
 
   // Expose API globally
+  // @ts-expect-error https://github.com/jsdoc/jsdoc/issues/1826
   window.replitClassifier = {
     main,
   };
