@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/types.d.ts",
   "files": [
-    "dist/index.js",
-    "dist/types.d.ts"
+    "dist",
+    "!dist/userscript.js"
   ],
   "scripts": {
     "build": "bun build src/index.js --outdir dist --minify && cp src/types.d.ts dist/types.d.ts",
