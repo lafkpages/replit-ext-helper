@@ -12,16 +12,17 @@
 
 (function () {
   /**
-   *
-   * @param {string} query
-   * A CSS query, passed to `document.querySelector` or `document.querySelectorAll`
-   *
-   * @param {string | [
+   * @typedef {[
    *    string | string[],
    *    boolean,
    *    RegExp | null,
    *    (elm: Element) => Element | null | undefined
-   * ]} data
+   * ]} AssignToQueryData
+   *
+   * @param {string} query
+   * A CSS query, passed to `document.querySelector` or `document.querySelectorAll`
+   *
+   * @param {string | AssignToQueryData} data
    */
   function assignToQuery(query, data) {
     console.groupCollapsed("[assignToQuery]", query);
