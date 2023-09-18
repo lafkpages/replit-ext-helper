@@ -86,11 +86,17 @@
 
   /**
    * Calls `assignToQuery` with multiple queries and classes.
-   * @param {Record<string, AssignToQueryDataArg>} obj
+   * @param {Record<string, AssignToQueryDataArg | AssignToQueryDataArg[]>} obj
    */
   function assignToQueries(obj) {
     for (const [query, data] of Object.entries(obj)) {
-      assignToQuery(query, data);
+      if (Array.isArray(data)) {
+        for (const d of data) {
+          assignToQuery(query, d);
+        }
+      } else {
+        assignToQuery(query, data);
+      }
     }
   }
 
@@ -98,11 +104,18 @@
     assignToQueries({
       '[data-cy="avatar-dropdown-button"]': "avatar-dropdown-btn",
       '[data-cy="header-new-repl-btn"]': "new-repl-btn",
-      button: {
-        classes: "new-repl-btn",
-        multiple: true,
-        textContent: /^\s*create\s+repl\s*$/i,
-      },
+      button: [
+        {
+          classes: "new-repl-btn",
+          multiple: true,
+          textContent: /^\s*create\s+repl\s*$/i,
+        },
+        {
+          classes: "copy-profile-link-btn",
+          multiple: true,
+          textContent: /^\s*copy\s+(?:profile|user)\s+(?:link|url)\s*$/i,
+        },
+      ],
       nav: "sidebar",
       ".sidebar ul": "sidebar-links",
       ".sidebar .sidebar-links li a": {
@@ -133,11 +146,6 @@
       "div ~ img": {
         classes: "profile-avatar",
         callback: (elm) => elm.parentElement,
-      },
-      button: {
-        classes: "copy-profile-link-btn",
-        multiple: true,
-        textContent: /^\s*copy\s+(?:profile|user)\s+(?:link|url)\s*$/i,
       },
       '[data-cy="filetree-add-file"]': "filetree-add-file-btn",
       '[data-cy="filetree-entity"]': {
