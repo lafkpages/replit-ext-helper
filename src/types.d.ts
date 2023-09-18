@@ -1,8 +1,8 @@
-interface ReplitExtHelper {
+export interface ReplitExtHelper {
   main: () => void;
   debug: boolean;
 }
 
-declare global {
+export declare global {
   var replitExtHelper: ReplitExtHelper | undefined;
 }
