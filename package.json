@@ -4,7 +4,7 @@
   "author": "LuisAFK",
   "main": "dist/index.js",
   "files": [
-    "dist"
+    "dist/index.js"
   ],
   "scripts": {
     "build": "bun build src/index.js --outdir dist --minify",
