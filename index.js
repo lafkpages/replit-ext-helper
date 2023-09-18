@@ -99,6 +99,7 @@
           )[0],
       ],
       ".open-chat-button": "open-chat-btn",
+      '[data-cy="ws-run-btn"] button': "run-repl-btn",
     });
   }
 
