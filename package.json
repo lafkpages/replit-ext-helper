@@ -1,6 +1,6 @@
 {
   "name": "replit-ext-helper",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "LuisAFK",
   "main": "dist/index.js",
   "types": "dist/types.d.ts",
