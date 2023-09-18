@@ -5,5 +5,8 @@
   "main": "index.js",
   "files": [
     "src"
-  ]
+  ],
+  "devDependencies": {
+    "esbuild": "^0.19.3"
+  }
 }
