@@ -36,7 +36,9 @@
    * @param {AssignToQueryDataArg} _data
    */
   function assignToQuery(query, _data) {
-    console.groupCollapsed("[assignToQuery]", query);
+    if (api.debug) {
+      console.groupCollapsed("[assignToQuery]", query);
+    }
 
     /**
      * @type {AssignToQueryData}
@@ -81,7 +83,9 @@
       elm.classList.add(...classNames, "replit-classifier");
     }
 
-    console.groupEnd();
+    if (api.debug) {
+      console.groupEnd();
+    }
   }
 
   /**
@@ -175,7 +179,14 @@
 
   const api = {
     main,
+    debug: false,
   };
+
+  try {
+    if (localStorage.getItem("replit-ext-helper-debug")) {
+      api.debug = true;
+    }
+  } catch {}
 
   // Expose API globally
   Object.defineProperty(window, "replitExtHelper", {
