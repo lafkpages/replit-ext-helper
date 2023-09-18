@@ -100,6 +100,8 @@
       ],
       ".open-chat-button": "open-chat-btn",
       '[data-cy="ws-run-btn"] button': [["run-repl-btn", "ws-run-repl-btn"]],
+      '[data-cy="sidebar-section-content-resources"], #sidebar-section-header-resources':
+        "ws-repl-resources",
     });
   }
 
