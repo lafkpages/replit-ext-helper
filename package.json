@@ -2,7 +2,7 @@
   "name": "replit-ext-helper",
   "version": "0.0.1",
   "author": "LuisAFK",
-  "main": "index.js",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],
