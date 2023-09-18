@@ -11,12 +11,6 @@
 // ==/UserScript==
 
 (function () {
-  //const realFetch = fetch;
-  //fetch = function () {
-  //  console.debug('Fetch', arguments);
-  //  return realFetch.call(this, ...arguments);
-  //};
-
   function assignToQuery(query, data) {
     data = Array.isArray(data) ? data : [data];
 
