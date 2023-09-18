@@ -10,6 +10,7 @@
     "esbuild": "^0.19.3"
   },
   "scripts": {
-    "prepublishOnly": "esbuild src/index.js --minify --outdir=dist"
+    "build": "esbuild src/index.js --minify --outdir=dist",
+    "prepublishOnly": "bun run build"
   }
 }
