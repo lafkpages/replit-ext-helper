@@ -2,6 +2,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "strict": true,
-    "checkJs": true
+    "checkJs": true,
+    "target": "ES6"
   }
 }
