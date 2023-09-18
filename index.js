@@ -81,7 +81,7 @@
         /^\s*copy\s+(?:profile|user)\s+(?:link|url)\s*$/i,
       ],
       '[data-cy="filetree-add-file"]': "filetree-add-file-btn",
-      '[data-cy="filetree-entity"]': "filetree-file",
+      '[data-cy="filetree-entity"]': ["filetree-file", true],
     });
   }
 
