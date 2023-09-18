@@ -69,6 +69,7 @@
       '.header div[role="combobox"] input': "header-search",
       '[data-cy="sidebar-toggle-btn"]': "sidebar-toggle-btn",
       '[data-cy="sidebar-new-repl-btn"]': "new-repl-btn",
+      '[data-cy="sidebar-new-repl-btn"] ~ div button': "new-repl-more-btn",
       '[data-cy="preferences-theme-dropdown"]': "theme-select",
       '[data-cy="follow-button"]': "follow-btn",
       '[data-cy="feed-item-card"]': "feed-item",
