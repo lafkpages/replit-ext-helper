@@ -73,6 +73,11 @@
       '[data-cy="feed-item-card"]': "feed-item",
       '[data-cy="repl-viewer-run-button"]': "run-repl-btn",
       "div ~ img": ["profile-avatar", false, null, 1],
+      button: [
+        "copy-profile-link-btn",
+        true,
+        /^\s*copy\s+(?:profile|user)\s+(?:link|url)\s*$/i,
+      ],
     });
   }
 
