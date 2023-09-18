@@ -98,6 +98,7 @@
             "button"
           )[0],
       ],
+      ".open-chat-button": "open-chat-btn",
     });
   }
 
