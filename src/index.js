@@ -173,9 +173,12 @@
     main();
   });
 
-  // Expose API globally
-  // @ts-expect-error https://github.com/jsdoc/jsdoc/issues/1826
-  window.replitExtHelper = {
+  const api = {
     main,
   };
+
+  // Expose API globally
+  Object.defineProperty(window, "replitExtHelper", {
+    get: () => api,
+  });
 })();
