@@ -12,12 +12,14 @@
 
 (function () {
   function assignToQuery(query, data) {
+    console.groupCollapsed("[assignToQuery]", query);
+
     data = Array.isArray(data) ? data : [data];
 
     const className = data[0];
     const multiple = !!data[1];
     const textContentRegex = data[2] instanceof RegExp ? data[2] : null;
-    const parents = data[3] || 0;
+    const callback = data[3] instanceof Function ? data[3] : null;
 
     const elms = multiple
       ? document.querySelectorAll(query)
@@ -28,14 +30,16 @@
         continue;
       }
 
+      console.debug(elm);
+
       if (textContentRegex) {
         if (!textContentRegex.test(elm.textContent)) {
           continue;
         }
       }
 
-      for (let i = 0; i < parents; i++) {
-        elm = elm?.parentElement;
+      if (callback) {
+        elm = callback(elm);
       }
 
       if (!elm) {
@@ -44,6 +48,8 @@
 
       elm.classList.add(className, "replit-classifier");
     }
+
+    console.groupEnd();
   }
 
   function assignToQueries(obj) {
@@ -74,7 +80,7 @@
       '[data-cy="follow-button"]': "follow-btn",
       '[data-cy="feed-item-card"]': "feed-item",
       '[data-cy="repl-viewer-run-button"]': "run-repl-btn",
-      "div ~ img": ["profile-avatar", false, null, 1],
+      "div ~ img": ["profile-avatar", false, null, (elm) => elm.parentElement],
       button: [
         "copy-profile-link-btn",
         true,
@@ -82,6 +88,16 @@
       ],
       '[data-cy="filetree-add-file"]': "filetree-add-file-btn",
       '[data-cy="filetree-entity"]': ["filetree-file", true],
+      ".invite-button": "invite-btn",
+      ".invite-btn": [
+        "deploy-btn",
+        false,
+        null,
+        (elm) =>
+          elm.parentElement.parentElement.parentElement.nextElementSibling.getElementsByTagName(
+            "button"
+          )[0],
+      ],
     });
   }
 
