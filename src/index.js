@@ -18,7 +18,7 @@
    *    string | string[],
    *    boolean,
    *    RegExp | null,
-   *    ((elm: Element) => Element | null | undefined) | null
+   *    ((elm: Element) => Element | null) | null
    * ]} AssignToQueryData
    *
    * @typedef {string | AssignToQueryData} AssignToQueryDataArg
@@ -53,7 +53,7 @@
       console.debug(elm);
 
       if (textContentRegex) {
-        if (!textContentRegex.test(elm.textContent)) {
+        if (!elm.textContent || !textContentRegex.test(elm.textContent)) {
           continue;
         }
       }

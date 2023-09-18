@@ -3,6 +3,6 @@
     "rootDir": "./src",
     "strict": true,
     "checkJs": true,
-    "target": "ES6"
+    "target": "ES2017"
   }
 }
