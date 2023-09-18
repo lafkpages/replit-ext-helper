@@ -59,6 +59,7 @@
       ".sidebar .sidebar-links li a": ["sidebar-link", true],
       ".sidebar .sidebar-bottom ul": "sidebar-bottom-links",
       ".sidebar-bottom-links li a": ["sidebar-bottom-link", true],
+      ".sidebar button": ["sidebar-help-btn", true, /^\s*help\s*$/i],
       header: "header",
       ".header .right > div": "header-right-btns",
       ".header .header-right-btns :nth-child(2) button": "notifications-btn",
