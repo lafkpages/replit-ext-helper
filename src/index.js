@@ -21,10 +21,12 @@
    *    (elm: Element) => Element | null | undefined
    * ]} AssignToQueryData
    *
+   * @typedef {string | AssignToQueryData} AssignToQueryDataArg
+   *
    * @param {string} query
    * A CSS query, passed to `document.querySelector` or `document.querySelectorAll`
    *
-   * @param {string | AssignToQueryData} _data
+   * @param {AssignToQueryDataArg} _data
    */
   function assignToQuery(query, _data) {
     console.groupCollapsed("[assignToQuery]", query);
@@ -70,6 +72,10 @@
     console.groupEnd();
   }
 
+  /**
+   * Calls `assignToQuery` with multiple queries and classes.
+   * @param {Record<string, AssignToQueryDataArg>} obj
+   */
   function assignToQueries(obj) {
     for (const [query, className] of Object.entries(obj)) {
       assignToQuery(query, className);
