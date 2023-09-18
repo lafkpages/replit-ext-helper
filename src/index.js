@@ -177,6 +177,10 @@
         classes: "replit-desktop",
         desktopOnly: true,
       },
+      "header ~ div": {
+        classes: "desktop-home-ws-pane",
+        desktopOnly: true,
+      },
     });
   }
 
