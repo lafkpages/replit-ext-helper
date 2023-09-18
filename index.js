@@ -66,6 +66,7 @@
       header: "header",
       ".header .right > div": "header-right-btns",
       ".header .header-right-btns :nth-child(2) button": "notifications-btn",
+      '.header div[role="combobox"] input': "header-search",
       '[data-cy="sidebar-toggle-btn"]': "sidebar-toggle-btn",
       '[data-cy="sidebar-new-repl-btn"]': "new-repl-btn",
       '[data-cy="preferences-theme-dropdown"]': "theme-select",
