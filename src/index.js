@@ -18,7 +18,7 @@
    *    string | string[],
    *    boolean,
    *    RegExp | null,
-   *    (elm: Element) => Element | null | undefined
+   *    ((elm: Element) => Element | null | undefined) | null
    * ]} AssignToQueryData
    *
    * @typedef {string | AssignToQueryData} AssignToQueryDataArg
@@ -34,15 +34,15 @@
     /**
      * @type {AssignToQueryData}
      */
-    const data = Array.isArray(_data) ? _data : [_data];
+    const data = Array.isArray(_data) ? _data : [_data, false, null, null];
 
-    const className = Array.isArray(data[0]) ? data[0] : [data[0]];
+    const classNames = Array.isArray(data[0]) ? data[0] : [data[0]];
     const multiple = !!data[1];
     const textContentRegex = data[2] instanceof RegExp ? data[2] : null;
     const callback = data[3] instanceof Function ? data[3] : null;
 
     const elms = multiple
-      ? document.querySelectorAll(query)
+      ? Array.from(document.querySelectorAll(query))
       : [document.querySelector(query)];
 
     for (let elm of elms) {
@@ -66,7 +66,7 @@
         continue;
       }
 
-      elm.classList.add(...className, "replit-classifier");
+      elm.classList.add(...classNames, "replit-classifier");
     }
 
     console.groupEnd();
