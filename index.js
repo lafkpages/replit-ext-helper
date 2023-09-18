@@ -23,12 +23,13 @@
     const className = data[0];
     const multiple = !!data[1];
     const textContentRegex = data[2] instanceof RegExp ? data[2] : null;
+    const parents = data[3] || 0;
 
     const elms = multiple
       ? document.querySelectorAll(query)
       : [document.querySelector(query)];
 
-    for (const elm of elms) {
+    for (let elm of elms) {
       if (!elm) {
         continue;
       }
@@ -37,6 +38,14 @@
         if (!textContentRegex.test(elm.textContent)) {
           continue;
         }
+      }
+
+      for (let i = 0; i < parents; i++) {
+        elm = elm?.parentElement;
+      }
+
+      if (!elm) {
+        continue;
       }
 
       elm.classList.add(className, "replit-classifier");
@@ -68,6 +77,8 @@
       '[data-cy="preferences-theme-dropdown"]': "theme-select",
       '[data-cy="follow-button"]': "follow-btn",
       '[data-cy="feed-item-card"]': "feed-item",
+      '[data-cy="repl-viewer-run-button"]': "run-repl-btn",
+      "div ~ img": ["profile-avatar", false, null, 1],
     });
   }
 
