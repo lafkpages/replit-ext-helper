@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Replit classifier
+// @name         Replit extension helper
 // @namespace    https://lafkpages.tech
 // @version      0.1
-// @description  Assigns classes to elements on the Replit page. Useful for extensions.
+// @description  Helper functions and classes for Replit extensions and userscripts
 // @author       LuisAFK
 // @match        https://replit.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=replit.com
