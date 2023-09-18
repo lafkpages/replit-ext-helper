@@ -6,9 +6,6 @@
   "files": [
     "src"
   ],
-  "devDependencies": {
-    "esbuild": "^0.19.3"
-  },
   "scripts": {
     "build": "bun build src/index.js --outdir dist --minify",
     "prepublishOnly": "bun run build"
