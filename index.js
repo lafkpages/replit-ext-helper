@@ -16,7 +16,7 @@
 
     data = Array.isArray(data) ? data : [data];
 
-    const className = data[0];
+    const className = Array.isArray(data[0]) ? data[0] : [data[0]];
     const multiple = !!data[1];
     const textContentRegex = data[2] instanceof RegExp ? data[2] : null;
     const callback = data[3] instanceof Function ? data[3] : null;
@@ -46,7 +46,7 @@
         continue;
       }
 
-      elm.classList.add(className, "replit-classifier");
+      elm.classList.add(...className, "replit-classifier");
     }
 
     console.groupEnd();
@@ -99,7 +99,7 @@
           )[0],
       ],
       ".open-chat-button": "open-chat-btn",
-      '[data-cy="ws-run-btn"] button': "run-repl-btn",
+      '[data-cy="ws-run-btn"] button': [["run-repl-btn", "ws-run-repl-btn"]],
     });
   }
 
