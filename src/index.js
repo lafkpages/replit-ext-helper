@@ -64,7 +64,9 @@
         continue;
       }
 
-      console.debug(elm);
+      if (api.debug) {
+        console.debug(elm);
+      }
 
       if (data.textContent) {
         if (!elm.textContent || !data.textContent.test(elm.textContent)) {
