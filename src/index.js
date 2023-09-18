@@ -181,6 +181,10 @@
         classes: "desktop-home-ws-pane",
         desktopOnly: true,
       },
+      ".desktop-home-ws-pane div div div:nth-child(2)": {
+        classes: "desktop-home-content",
+        desktopOnly: true,
+      },
     });
   }
 
