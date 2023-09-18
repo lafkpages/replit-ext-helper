@@ -7,6 +7,7 @@
     multiple: false,
     textContent: null,
     callback: null,
+    desktopOnly: false,
   };
 
   /**
@@ -16,7 +17,8 @@
    *    classes: string | string[],
    *    multiple: boolean,
    *    textContent: RegExp | null,
-   *    callback: ((elm: Element) => Element | null) | null
+   *    callback: ((elm: Element) => Element | null) | null,
+   *    desktopOnly: boolean,
    * }} AssignToQueryData
    *
    * @typedef {string | Partial<AssignToQueryData>} AssignToQueryDataArg
@@ -41,6 +43,14 @@
             classes: _data,
           }
         : { ...defaultAssignToQueryData, ..._data };
+
+    if (data.desktopOnly && !api.isDesktop) {
+      if (api.debug) {
+        console.debug("Skipping (desktop only)");
+        console.groupEnd();
+      }
+      return;
+    }
 
     const classNames = Array.isArray(data.classes)
       ? data.classes
