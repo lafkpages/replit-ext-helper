@@ -22,12 +22,15 @@
    * @param {string} query
    * A CSS query, passed to `document.querySelector` or `document.querySelectorAll`
    *
-   * @param {string | AssignToQueryData} data
+   * @param {string | AssignToQueryData} _data
    */
-  function assignToQuery(query, data) {
+  function assignToQuery(query, _data) {
     console.groupCollapsed("[assignToQuery]", query);
 
-    data = Array.isArray(data) ? data : [data];
+    /**
+     * @type {AssignToQueryData}
+     */
+    const data = Array.isArray(_data) ? _data : [_data];
 
     const className = Array.isArray(data[0]) ? data[0] : [data[0]];
     const multiple = !!data[1];
