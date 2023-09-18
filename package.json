@@ -8,5 +8,8 @@
   ],
   "devDependencies": {
     "esbuild": "^0.19.3"
+  },
+  "scripts": {
+    "prepublishOnly": "esbuild src/index.js --minify --outdir=dist"
   }
 }
