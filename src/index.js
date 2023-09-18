@@ -70,7 +70,7 @@
         continue;
       }
 
-      elm.classList.add(...classNames, "replit-classifier");
+      elm.classList.add(...classNames, "replit-ext-helper");
     }
 
     if (api.debug) {
