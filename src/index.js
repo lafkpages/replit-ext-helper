@@ -170,6 +170,12 @@
   const api = {
     main,
     debug: false,
+    get isDesktop() {
+      return (
+        // @ts-expect-error - `replitDesktop` is not defined in the browser
+        window.replitDesktop?.version?.length > 0
+      );
+    },
   };
 
   try {

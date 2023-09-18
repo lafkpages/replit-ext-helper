@@ -9,8 +9,9 @@ Note: not for [Replit extensions](https://docs.replit.com/extensions).
 A global `replitExtHelper` object is exposed. It's an object with the following properties:
 
 ```ts
-interface ReplitExtHelper {
+export interface ReplitExtHelper {
   main: () => void;
   debug: boolean;
+  get isDesktop(): boolean;
 }
 ```
