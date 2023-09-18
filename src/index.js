@@ -173,6 +173,10 @@
       },
       '[data-cy="sidebar-section-content-resources"], #sidebar-section-header-resources':
         "ws-repl-resources",
+      body: {
+        classes: "replit-desktop",
+        desktopOnly: true,
+      },
     });
   }
 
