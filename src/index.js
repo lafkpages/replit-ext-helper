@@ -11,6 +11,18 @@
 // ==/UserScript==
 
 (function () {
+  /**
+   *
+   * @param {string} query
+   * A CSS query, passed to `document.querySelector` or `document.querySelectorAll`
+   *
+   * @param {string | [
+   *    string | string[],
+   *    boolean,
+   *    RegExp | null,
+   *    (elm: Element) => Element | null | undefined
+   * ]} data
+   */
   function assignToQuery(query, data) {
     console.groupCollapsed("[assignToQuery]", query);
 
