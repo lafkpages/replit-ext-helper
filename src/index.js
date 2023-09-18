@@ -12,6 +12,8 @@
 
 (function () {
   /**
+   * Finds elements in the document and assigns them a class.
+   *
    * @typedef {[
    *    string | string[],
    *    boolean,
