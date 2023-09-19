@@ -10,7 +10,19 @@ function getProjectDir() {
 export async function getComponentNames() {
   const projectDir = getProjectDir();
 
-  return await readdir(joinPaths(projectDir, "node_modules/@replit-svelte/ui"));
+  const files = await readdir(
+    joinPaths(projectDir, "node_modules/@replit-svelte/ui")
+  );
+
+  return (
+    files
+
+      // Filter out non-Svelte files.
+      .filter((file) => file.endsWith(".svelte"))
+
+      // Remove the ".svelte" extension.
+      .map((file) => file.slice(0, -7))
+  );
 }
 
 /**
