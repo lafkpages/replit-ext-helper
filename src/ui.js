@@ -19,6 +19,7 @@ export async function compileComponent(component) {
     filename: componentFilePath,
     varsReport: false,
     enableSourcemap: false,
+    css: "injected",
     sveltePath: "../node_modules/svelte",
   });
 }
