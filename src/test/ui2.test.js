@@ -7,5 +7,5 @@ test("[ui] getComponentNames", async () => {
 
   expect(componentNames).toBeArray();
   expect(componentNames).not.toBeEmpty();
-  expect(componentNames).toInclude("Button");
+  expect(componentNames).toContain("Button");
 });
