@@ -1,5 +1,5 @@
-import { join as joinPaths, basename } from "path";
-import { readdir } from "fs/promises";
+import { join as joinPaths, basename, extname } from "path";
+import { copyFile, readdir } from "fs/promises";
 
 import { compile } from "svelte/compiler";
 
@@ -101,6 +101,7 @@ export async function compileComponent(
  *    outDir: string | null,
  *    extension: string,
  *    icons: boolean,
+ *    copyOthers: boolean | string[]
  * }} CompileAllComponentsOptions
  * @param {Partial<CompileAllComponentsOptions>} opts
  */
@@ -109,6 +110,7 @@ export async function compileAllComponents(opts = {}) {
     outDir = null,
     extension = "svelte",
     icons: includeIcons = false,
+    copyOthers = false,
   } = opts;
 
   const components = await getComponentNames();
@@ -147,6 +149,33 @@ export async function compileAllComponents(opts = {}) {
           compiledComponents[componentName].js.code
         );
       }
+    }
+  }
+
+  if (copyOthers && outDir) {
+    const projectDir = getProjectDir();
+
+    const files = await readdir(
+      joinPaths(projectDir, "node_modules/@replit-svelte/ui")
+    );
+
+    for (const file of files) {
+      const fileExt = extname(file);
+
+      if (fileExt == ".svelte") {
+        continue;
+      }
+
+      if (Array.isArray(copyOthers) && !copyOthers.includes(fileExt)) {
+        continue;
+      }
+
+      const filePath = joinPaths(
+        projectDir,
+        `node_modules/@replit-svelte/ui/${file}`
+      );
+
+      await copyFile(filePath, joinPaths(outDir, file));
     }
   }
 
