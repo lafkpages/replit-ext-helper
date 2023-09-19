@@ -68,8 +68,12 @@ export async function compileComponent(
 
 /**
  * @param {string | null} outDir
+ * @param {string} extension
  */
-export async function compileAllComponents(outDir = null) {
+export async function compileAllComponents(
+  outDir = null,
+  extension = "svelte"
+) {
   const components = await getComponentNames();
 
   /**
@@ -84,7 +88,7 @@ export async function compileAllComponents(outDir = null) {
   if (outDir) {
     for (const component of components) {
       await Bun.write(
-        joinPaths(outDir, `${component}.js`),
+        joinPaths(outDir, `${component}.${extension}`),
         compiledComponents[component].js.code
       );
     }
