@@ -14,7 +14,8 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "@replit-svelte/ui": "^1.4.5"
+    "@replit-svelte/ui": "^1.4.5",
+    "svelte": "^4.2.0"
   },
   "devDependencies": {
     "@replit-svelte/types": "^1.4.1"
