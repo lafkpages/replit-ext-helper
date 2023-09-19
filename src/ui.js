@@ -37,6 +37,35 @@ export async function getComponentNames() {
 }
 
 /**
+ * @type {string[] | null}
+ */
+let iconNamesCache = null;
+
+export async function getIconNames() {
+  if (iconNamesCache) {
+    return iconNamesCache;
+  }
+
+  const projectDir = getProjectDir();
+
+  const files = await readdir(
+    joinPaths(projectDir, "node_modules/@replit-svelte/ui/icons")
+  );
+
+  const names = files
+
+    // Filter out non-Svelte files.
+    .filter((file) => file.endsWith(".svelte"))
+
+    // Remove the ".svelte" extension.
+    .map((file) => file.slice(0, -7));
+
+  iconNamesCache = names;
+
+  return names;
+}
+
+/**
  * Compiles a component from Replit Svelte to a JS module.
  * @param {string} component
  * //@param {string | null} targetNodeModules
