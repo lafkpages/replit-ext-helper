@@ -5,9 +5,11 @@ import { compile } from "svelte/compiler";
 /**
  * Compiles a component from Replit Svelte to a JS module.
  * @param {string} component
- * @param {string | null} targetNodeModules
+ * //@param {string | null} targetNodeModules
  */
-export async function compileComponent(component, targetNodeModules = null) {
+export async function compileComponent(
+  component /* targetNodeModules = null */
+) {
   const projectDir = joinPaths(
     Bun.fileURLToPath(new URL(import.meta.url)),
     "../../"
@@ -20,8 +22,8 @@ export async function compileComponent(component, targetNodeModules = null) {
   const componentFile = Bun.file(componentFilePath);
   const componentSource = await componentFile.text();
 
-  const targetNodeModulesDir =
-    targetNodeModules ?? joinPaths(projectDir, "node_modules");
+  // const targetNodeModulesDir =
+  //   targetNodeModules ?? joinPaths(projectDir, "node_modules");
 
   return compile(componentSource, {
     name: component,
@@ -29,6 +31,6 @@ export async function compileComponent(component, targetNodeModules = null) {
     varsReport: false,
     enableSourcemap: false,
     css: "injected",
-    sveltePath: joinPaths(targetNodeModulesDir, "svelte"),
+    // sveltePath: joinPaths(targetNodeModulesDir, "svelte"),
   });
 }
