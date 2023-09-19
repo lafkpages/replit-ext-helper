@@ -99,11 +99,12 @@ export async function compileComponent(
  * @typedef {{
  *    outDir: string | null,
  *    extension: string,
+ *    icons: boolean,
  * }} CompileAllComponentsOptions
  * @param {Partial<CompileAllComponentsOptions>} opts
  */
 export async function compileAllComponents(opts = {}) {
-  const { outDir = null, extension = "js" } = opts;
+  const { outDir = null, extension = "js", icons: includeIcons = false } = opts;
 
   const components = await getComponentNames();
 
@@ -122,6 +123,24 @@ export async function compileAllComponents(opts = {}) {
         joinPaths(outDir, `${component}.${extension}`),
         compiledComponents[component].js.code
       );
+    }
+  }
+
+  if (includeIcons) {
+    const icons = await getIconNames();
+
+    for (const icon of icons) {
+      const componentName = `icons/${icon}`;
+      compiledComponents[componentName] = await compileComponent(componentName);
+    }
+
+    if (outDir) {
+      for (const icon of icons) {
+        await Bun.write(
+          joinPaths(outDir, `icons/${icon}.${extension}`),
+          compiledComponents[icon].js.code
+        );
+      }
     }
   }
 
