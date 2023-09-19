@@ -37,7 +37,14 @@ const bundle = await Bun.build({
 if (bundle.success) {
   await Bun.write("dist/index.js", bundle.outputs[0]);
 } else {
-  throw new Error(bundle.logs.join("\n"));
+  throw new Error(
+    bundle.logs
+      .map(
+        (log) =>
+          `${log.position?.file}:${log.position?.line}:${log.position?.column} ${log.message}`
+      )
+      .join("\n")
+  );
 }
 
 // Copy the type definitions.
