@@ -19,6 +19,6 @@ export interface ReplitExtHelper {
   runOnLoad: boolean;
 
   get isDesktop(): boolean;
-  set isDesktop(value: true | null): void;
+  set isDesktop(value: true | null);
 }
 ```
