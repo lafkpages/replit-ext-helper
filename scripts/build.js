@@ -8,7 +8,11 @@ await rm("dist", { recursive: true, force: true });
 await mkdir("dist/ui/icons", { recursive: true });
 
 // Compile all Replit Svelte components.
-await compileAllComponents({ outDir: "dist/ui", icons: true });
+await compileAllComponents({
+  outDir: "dist/ui",
+  icons: true,
+  copyOthers: [".css"],
+});
 
 // Build the JS bundle.
 const bundle = await Bun.build({
