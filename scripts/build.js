@@ -1,4 +1,5 @@
 import { rm, mkdir, copyFile } from "fs/promises";
+import { resolve as resolvePath } from "path";
 
 import { compileAllComponents } from "../src/ui";
 
@@ -16,6 +17,18 @@ const bundle = await Bun.build({
   loader: {
     ".svelte": "js",
   },
+  plugins: [
+    {
+      name: "replit-svelte-to-dist",
+      setup(build) {
+        build.onResolve({ filter: /^@replit-svelte\/ui\// }, (args) => ({
+          path: resolvePath(
+            args.path.replace(/^@replit-svelte\/ui\//, `./dist/ui/`)
+          ),
+        }));
+      },
+    },
+  ],
 });
 if (bundle.success) {
   await Bun.write("dist/index.js", bundle.outputs[0]);
