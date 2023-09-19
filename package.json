@@ -20,7 +20,6 @@
   "devDependencies": {
     "@replit-svelte/types": "^1.4.1",
     "bun-types": "^1.0.2",
-    "esm-env": "^1.0.0",
-    "svelte-markdown": "^0.4.0"
+    "esm-env": "^1.0.0"
   }
 }
