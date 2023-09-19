@@ -189,13 +189,17 @@
   }
 
   window.addEventListener("load", () => {
-    main();
+    if (api.runOnLoad) {
+      main();
+    }
   });
 
   let forceDesktop = false;
   const api = {
     main,
     debug: false,
+
+    runOnLoad: true,
 
     /**
      * @returns {boolean}
