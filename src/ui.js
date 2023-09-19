@@ -1,6 +1,17 @@
 import { join as joinPaths } from "path";
+import { readdir } from "fs/promises";
 
 import { compile } from "svelte/compiler";
+
+function getProjectDir() {
+  return joinPaths(Bun.fileURLToPath(new URL(import.meta.url)), "../../");
+}
+
+export async function getComponentNames() {
+  const projectDir = getProjectDir();
+
+  return await readdir(joinPaths(projectDir, "node_modules/@replit-svelte/ui"));
+}
 
 /**
  * Compiles a component from Replit Svelte to a JS module.
@@ -10,10 +21,7 @@ import { compile } from "svelte/compiler";
 export async function compileComponent(
   component /* targetNodeModules = null */
 ) {
-  const projectDir = joinPaths(
-    Bun.fileURLToPath(new URL(import.meta.url)),
-    "../../"
-  );
+  const projectDir = getProjectDir();
 
   const componentFilePath = joinPaths(
     projectDir,
