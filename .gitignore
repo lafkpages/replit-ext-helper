@@ -4,3 +4,4 @@ dist
 
 # Test results
 *.test.json
+/test-results
