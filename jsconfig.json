@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "ES2022",
     "moduleResolution": "node",
-    "rootDir": "./src",
+    "rootDirs": ["./src", "./scripts"],
     "strict": true,
     "checkJs": true,
     "target": "ES2017",
