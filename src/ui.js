@@ -54,3 +54,18 @@ export async function compileComponent(
     // sveltePath: joinPaths(targetNodeModulesDir, "svelte"),
   });
 }
+
+export async function compileAllComponents() {
+  const components = await getComponentNames();
+
+  /**
+   * @type {Record<string, import('svelte/compiler').CompileResult>}
+   */
+  const compiledComponents = {};
+
+  for (const component of components) {
+    compiledComponents[component] = await compileComponent(component);
+  }
+
+  return compiledComponents;
+}
