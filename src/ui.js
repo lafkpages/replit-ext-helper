@@ -55,7 +55,10 @@ export async function compileComponent(
   });
 }
 
-export async function compileAllComponents() {
+/**
+ * @param {string | null} outDir
+ */
+export async function compileAllComponents(outDir = null) {
   const components = await getComponentNames();
 
   /**
@@ -65,6 +68,15 @@ export async function compileAllComponents() {
 
   for (const component of components) {
     compiledComponents[component] = await compileComponent(component);
+  }
+
+  if (outDir) {
+    for (const component of components) {
+      await Bun.write(
+        joinPaths(outDir, `${component}.js`),
+        compiledComponents[component].js.code
+      );
+    }
   }
 
   return compiledComponents;
