@@ -1,3 +1,5 @@
+import { join as joinPaths } from "path";
+
 import { compile } from "svelte/compiler";
 
 /**
@@ -5,7 +7,10 @@ import { compile } from "svelte/compiler";
  * @param {string} component
  */
 export async function compileComponent(component) {
-  const componentFilePath = `../node_modules/@replit-svelte/ui/${component}.svelte`;
+  const componentFilePath = joinPaths(
+    Bun.fileURLToPath(new URL(import.meta.url)),
+    `../../node_modules/@replit-svelte/ui/${component}.svelte`
+  );
   const componentFile = Bun.file(componentFilePath);
   const componentSource = await componentFile.text();
 
