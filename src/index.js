@@ -1,5 +1,30 @@
 /// <reference lib="dom" />
 
+// TODO: glob import?
+
+// Avatar, Button, Card, Checkbox, ConditionalParent, CreateReplModal, DocsProp, FileInput, Files, IconButton, Input, Modal, ModalProvider, Pill, Profile, SearchBar, Select, Sidebar, StatusBanner, Tabs, ToastProvider
+import Avatar from "@replit-svelte/ui/Avatar.svelte";
+import Button from "@replit-svelte/ui/Button.svelte";
+import Card from "@replit-svelte/ui/Card.svelte";
+import Checkbox from "@replit-svelte/ui/Checkbox.svelte";
+import ConditionalParent from "@replit-svelte/ui/ConditionalParent.svelte";
+import CreateReplModal from "@replit-svelte/ui/CreateReplModal.svelte";
+import DocsProp from "@replit-svelte/ui/DocsProp.svelte";
+import FileInput from "@replit-svelte/ui/FileInput.svelte";
+import Files from "@replit-svelte/ui/Files.svelte";
+import IconButton from "@replit-svelte/ui/IconButton.svelte";
+import Input from "@replit-svelte/ui/Input.svelte";
+import Modal from "@replit-svelte/ui/Modal.svelte";
+import ModalProvider from "@replit-svelte/ui/ModalProvider.svelte";
+import Pill from "@replit-svelte/ui/Pill.svelte";
+import Profile from "@replit-svelte/ui/Profile.svelte";
+import SearchBar from "@replit-svelte/ui/SearchBar.svelte";
+import Select from "@replit-svelte/ui/Select.svelte";
+import Sidebar from "@replit-svelte/ui/Sidebar.svelte";
+import StatusBanner from "@replit-svelte/ui/StatusBanner.svelte";
+import Tabs from "@replit-svelte/ui/Tabs.svelte";
+import ToastProvider from "@replit-svelte/ui/ToastProvider.svelte";
+
 (function () {
   /**
    * @satisfies {AssignToQueryData}
