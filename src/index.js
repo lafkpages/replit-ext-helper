@@ -196,6 +196,10 @@
   const api = {
     main,
     debug: false,
+
+    /**
+     * @returns {boolean}
+     */
     get isDesktop() {
       return (
         forceDesktop ||
@@ -203,6 +207,10 @@
         window.replitDesktop?.version?.length > 0
       );
     },
+
+    /**
+     * @param {true | null} value
+     */
     set isDesktop(value) {
       if (value === true) {
         forceDesktop = true;
