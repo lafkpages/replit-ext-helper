@@ -10,7 +10,7 @@ import { compileComponent } from "../ui";
 //   );
 // });
 
-const Button = await compileComponent("Button");
+const Button = await compileComponent("Button", ".");
 
 await mkdir("test-results/ui", { recursive: true });
 await Bun.write("test-results/ui/Button.js", Button.js.code);
