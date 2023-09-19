@@ -9,7 +9,7 @@ import Card from "@replit-svelte/ui/Card.svelte";
 import Checkbox from "@replit-svelte/ui/Checkbox.svelte";
 import ConditionalParent from "@replit-svelte/ui/ConditionalParent.svelte";
 import CreateReplModal from "@replit-svelte/ui/CreateReplModal.svelte";
-import DocsProp from "@replit-svelte/ui/DocsProp.svelte";
+// import DocsProp from "@replit-svelte/ui/DocsProp.svelte";
 import FileInput from "@replit-svelte/ui/FileInput.svelte";
 import Files from "@replit-svelte/ui/Files.svelte";
 import IconButton from "@replit-svelte/ui/IconButton.svelte";
