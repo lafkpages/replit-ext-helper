@@ -1,3 +1,11 @@
 import { getComponentNames } from "../ui";
 
-console.log(await getComponentNames());
+import { expect, test } from "bun:test";
+
+test("[ui] getComponentNames", async () => {
+  const componentNames = await getComponentNames();
+
+  expect(componentNames).toBeArray();
+  expect(componentNames).not.toBeEmpty();
+  expect(componentNames).toInclude("Button");
+});
