@@ -12,5 +12,11 @@
     "build": "rm -rf dist && mkdir -p dist && bun build src/index.js --outdir dist --minify && cp src/types.d.ts dist/types.d.ts",
     "build:userscript": "mkdir -p dist && rm -f dist/userscript.js && cp src/userscript.js dist/userscript.js && bun build src/index.js --minify >> dist/userscript.js",
     "prepublishOnly": "bun run build"
+  },
+  "dependencies": {
+    "@replit-svelte/ui": "^1.4.5"
+  },
+  "devDependencies": {
+    "@replit-svelte/types": "^1.4.1"
   }
 }
