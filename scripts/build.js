@@ -10,14 +10,14 @@ await mkdir("dist/ui", { recursive: true });
 await compileAllComponents("dist/ui");
 
 // Build the JS bundle.
-await Bun.build({
+const bundle = await Bun.build({
   entrypoints: ["src/index.js"],
-  outdir: "dist",
   minify: true,
   loader: {
     ".svelte": "js",
   },
 });
+await Bun.write("dist/index.js", bundle.outputs[0]);
 
 // Copy the type definitions.
 await copyFile("src/types.d.ts", "dist/types.d.ts");
