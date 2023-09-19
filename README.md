@@ -12,6 +12,12 @@ A global `replitExtHelper` object is exposed. It's an object with the following 
 export interface ReplitExtHelper {
   main: () => void;
   debug: boolean;
+
+  /**
+   * Wether to run `main` on page load.
+   */
+  runOnLoad: boolean;
+
   get isDesktop(): boolean;
   set isDesktop(value: true | null): void;
 }
