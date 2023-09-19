@@ -96,13 +96,15 @@ export async function compileComponent(
 }
 
 /**
- * @param {string | null} outDir
- * @param {string} extension
+ * @typedef {{
+ *    outDir: string | null,
+ *    extension: string,
+ * }} CompileAllComponentsOptions
+ * @param {Partial<CompileAllComponentsOptions>} opts
  */
-export async function compileAllComponents(
-  outDir = null,
-  extension = "svelte"
-) {
+export async function compileAllComponents(opts = {}) {
+  const { outDir = null, extension = "js" } = opts;
+
   const components = await getComponentNames();
 
   /**
