@@ -105,7 +105,11 @@ export async function compileComponent(
  * @param {Partial<CompileAllComponentsOptions>} opts
  */
 export async function compileAllComponents(opts = {}) {
-  const { outDir = null, extension = "js", icons: includeIcons = false } = opts;
+  const {
+    outDir = null,
+    extension = "svelte",
+    icons: includeIcons = false,
+  } = opts;
 
   const components = await getComponentNames();
 
