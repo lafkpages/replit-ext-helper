@@ -199,6 +199,9 @@
     main,
     debug: false,
 
+    /**
+     * Wether to run `main` on page load.
+     */
     runOnLoad: true,
 
     /**
