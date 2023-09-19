@@ -137,9 +137,10 @@ export async function compileAllComponents(opts = {}) {
 
     if (outDir) {
       for (const icon of icons) {
+        const componentName = `icons/${icon}`;
         await Bun.write(
-          joinPaths(outDir, `icons/${icon}.${extension}`),
-          compiledComponents[icon].js.code
+          joinPaths(outDir, `${componentName}.${extension}`),
+          compiledComponents[componentName].js.code
         );
       }
     }
