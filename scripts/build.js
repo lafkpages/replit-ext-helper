@@ -17,7 +17,11 @@ const bundle = await Bun.build({
     ".svelte": "js",
   },
 });
-await Bun.write("dist/index.js", bundle.outputs[0]);
+if (bundle.success) {
+  await Bun.write("dist/index.js", bundle.outputs[0]);
+} else {
+  throw new Error(bundle.logs.join("\n"));
+}
 
 // Copy the type definitions.
 await copyFile("src/types.d.ts", "dist/types.d.ts");
