@@ -1,4 +1,4 @@
-import { join as joinPaths } from "path";
+import { join as joinPaths, basename } from "path";
 import { readdir } from "fs/promises";
 
 import { compile } from "svelte/compiler";
@@ -81,12 +81,13 @@ export async function compileComponent(
   );
   const componentFile = Bun.file(componentFilePath);
   const componentSource = await componentFile.text();
+  const componentName = basename(componentFilePath, ".svelte");
 
   // const targetNodeModulesDir =
   //   targetNodeModules ?? joinPaths(projectDir, "node_modules");
 
   return compile(componentSource, {
-    name: component,
+    name: componentName,
     filename: componentFilePath,
     varsReport: false,
     enableSourcemap: false,

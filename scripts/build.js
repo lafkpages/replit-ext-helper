@@ -5,7 +5,7 @@ import { compileAllComponents } from "../src/ui";
 
 // Clear and create output directory.
 await rm("dist", { recursive: true, force: true });
-await mkdir("dist/ui", { recursive: true });
+await mkdir("dist/ui/icons", { recursive: true });
 
 // Compile all Replit Svelte components.
 await compileAllComponents({ outDir: "dist/ui", icons: true });
