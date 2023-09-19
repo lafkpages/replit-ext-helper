@@ -231,5 +231,8 @@
   // Expose API globally
   Object.defineProperty(window, "replitExtHelper", {
     get: () => api,
+    set: () => {
+      console.warn("replitExtHelper is read-only");
+    },
   });
 })();
