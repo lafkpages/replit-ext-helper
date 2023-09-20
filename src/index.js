@@ -25,6 +25,9 @@ import StatusBanner from "@replit-svelte/ui/StatusBanner.svelte";
 import Tabs from "@replit-svelte/ui/Tabs.svelte";
 import ToastProvider from "@replit-svelte/ui/ToastProvider.svelte";
 
+// Import global Replit Svelte styles
+import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
+
 (function () {
   const replitSvelteComponents = {
     Avatar,
@@ -280,6 +283,7 @@ import ToastProvider from "@replit-svelte/ui/ToastProvider.svelte";
     },
 
     replitSvelteComponents,
+    globalReplitSvelteStyles,
   };
 
   try {
