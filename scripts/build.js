@@ -52,4 +52,4 @@ if (!bundle.success) {
 await rm("dist/ui", { recursive: true, force: true });
 
 // Copy the type definitions.
-await copyFile("src/types.d.ts", "dist/types.d.ts");
+await copyFile("src/types/index.d.ts", "dist/types.d.ts");
