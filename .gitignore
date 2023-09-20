@@ -5,3 +5,6 @@ dist
 # Test results
 *.test.json
 /test-results
+
+# Generated types
+src/types/ui.d.ts
