@@ -16,6 +16,8 @@ export interface ReplitExtHelper {
     Exclude<ReplitSvelteComponents, "DocsProp">,
     any
   >;
+
+  injectReplitSvelteStyles(): void;
 }
 
 export declare global {

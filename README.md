@@ -20,5 +20,12 @@ export interface ReplitExtHelper {
 
   get isDesktop(): boolean;
   set isDesktop(value: true | null);
+
+  replitSvelteComponents: Record<
+    Exclude<ReplitSvelteComponents, "DocsProp">,
+    any
+  >;
+
+  injectReplitSvelteStyles(): void;
 }
 ```
