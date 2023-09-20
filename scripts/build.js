@@ -21,6 +21,7 @@ const bundle = await Bun.build({
   loader: {
     ".svelte": "js",
     ".js": "js",
+    ".css": "text",
   },
   target: "browser",
   outdir: "dist",
