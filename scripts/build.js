@@ -20,7 +20,10 @@ const bundle = await Bun.build({
   minify: true,
   loader: {
     ".svelte": "js",
+    ".js": "js",
   },
+  target: "browser",
+  outdir: "dist",
   plugins: [
     {
       name: "replit-svelte-to-dist",
@@ -34,9 +37,7 @@ const bundle = await Bun.build({
     },
   ],
 });
-if (bundle.success) {
-  await Bun.write("dist/index.js", bundle.outputs[0]);
-} else {
+if (!bundle.success) {
   throw new Error(
     bundle.logs
       .map(
@@ -46,6 +47,9 @@ if (bundle.success) {
       .join("\n")
   );
 }
+
+// Remove compiled components.
+await rm("dist/ui", { recursive: true, force: true });
 
 // Copy the type definitions.
 await copyFile("src/types.d.ts", "dist/types.d.ts");

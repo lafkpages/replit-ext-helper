@@ -26,6 +26,30 @@ import Tabs from "@replit-svelte/ui/Tabs.svelte";
 import ToastProvider from "@replit-svelte/ui/ToastProvider.svelte";
 
 (function () {
+  const replitSvelteComponents = {
+    Avatar,
+    Button,
+    Card,
+    Checkbox,
+    ConditionalParent,
+    CreateReplModal,
+    // DocsProp,
+    FileInput,
+    Files,
+    IconButton,
+    Input,
+    Modal,
+    ModalProvider,
+    Pill,
+    Profile,
+    SearchBar,
+    Select,
+    Sidebar,
+    StatusBanner,
+    Tabs,
+    ToastProvider,
+  };
+
   /**
    * @satisfies {AssignToQueryData}
    */
@@ -254,6 +278,8 @@ import ToastProvider from "@replit-svelte/ui/ToastProvider.svelte";
         throw new TypeError("isDesktop can only be set to true or null");
       }
     },
+
+    replitSvelteComponents,
   };
 
   try {
