@@ -1,3 +1,5 @@
+import type { ReplitSvelteComponents } from "./ui";
+
 export interface ReplitExtHelper {
   main: () => void;
   debug: boolean;
@@ -9,6 +11,8 @@ export interface ReplitExtHelper {
 
   get isDesktop(): boolean;
   set isDesktop(value: true | null);
+
+  replitSvelteComponents: Record<ReplitSvelteComponents, any>;
 }
 
 export declare global {
