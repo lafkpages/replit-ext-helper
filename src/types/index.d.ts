@@ -1,14 +1,5 @@
-# Replit extensions helper
+import type { ReplitSvelteComponents } from "./ui";
 
-A helper utility for browser extensions and userscripts.
-
-Note: not for [Replit extensions](https://docs.replit.com/extensions).
-
-## API
-
-A global `replitExtHelper` object is exposed. It's an object with the following properties:
-
-```ts
 export interface ReplitExtHelper {
   main: () => void;
   debug: boolean;
@@ -28,4 +19,7 @@ export interface ReplitExtHelper {
 
   injectReplitSvelteStyles(): void;
 }
-```
+
+export declare global {
+  var replitExtHelper: ReplitExtHelper | undefined;
+}
