@@ -161,6 +161,23 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
     }
   }
 
+  function injectReplitSvelteStyles() {
+    // Check if the styles have already been injected
+    if (
+      document.body.dataset.replitExtHelperReplitSvelteStylesInjected == "1"
+    ) {
+      return;
+    }
+
+    // Inject the styles
+    const style = document.createElement("style");
+    style.textContent = globalReplitSvelteStyles;
+    document.head.appendChild(style);
+
+    // Mark the styles as injected
+    document.body.dataset.replitExtHelperReplitSvelteStylesInjected = "1";
+  }
+
   function main() {
     assignToQueries({
       '[data-cy="avatar-dropdown-button"]': "avatar-dropdown-btn",
@@ -283,7 +300,7 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
     },
 
     replitSvelteComponents,
-    globalReplitSvelteStyles,
+    injectReplitSvelteStyles,
   };
 
   try {
