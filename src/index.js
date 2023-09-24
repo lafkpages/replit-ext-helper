@@ -256,6 +256,7 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
         classes: "desktop-home-content",
         desktopOnly: true,
       },
+      "#tips": "repl-tips-container",
     });
   }
 
