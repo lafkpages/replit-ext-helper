@@ -16,12 +16,6 @@ export class ReplitExtHelper extends EventTarget {
    */
   runOnRouteChange: boolean;
 
-  /**
-   * Wether the Next.js Router's `routeChangeComplete`
-   * event has been listened to.
-   */
-  get didHandleNextRouteChange(): boolean;
-
   get isDesktop(): boolean;
   set isDesktop(value: true | null);
 
