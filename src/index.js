@@ -241,6 +241,7 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
         },
         "#tips": "repl-tips-container",
         'body > div > div[role="dialog"]': "modal",
+        '.modal button[type="submit"]': "modal-submit-btn",
       });
 
       this.dispatchEvent(new CustomEvent("main"));
