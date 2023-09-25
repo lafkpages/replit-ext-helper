@@ -9,7 +9,7 @@ Note: not for [Replit extensions](https://docs.replit.com/extensions).
 A global `replitExtHelper` object is exposed. It's an object with the following properties:
 
 ```ts
-export interface ReplitExtHelper {
+export class ReplitExtHelper extends EventTarget {
   main: () => void;
   debug: boolean;
 
@@ -17,6 +17,18 @@ export interface ReplitExtHelper {
    * Wether to run `main` on page load.
    */
   runOnLoad: boolean;
+
+  /**
+   * Wether to run `main` on the Next.js Router's
+   * `routeChangeComplete` event.
+   */
+  runOnRouteChange: boolean;
+
+  /**
+   * Wether the Next.js Router's `routeChangeComplete`
+   * event has been listened to.
+   */
+  get didHandleNextRouteChange(): boolean;
 
   get isDesktop(): boolean;
   set isDesktop(value: true | null);
