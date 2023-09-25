@@ -283,6 +283,32 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
     }
 
     /**
+     * @param {string} query
+     * @returns {Promise<Element>}
+     */
+    waitForElement(query) {
+      return new Promise((resolve) => {
+        const initialElm = document.querySelector(query);
+        if (initialElm) {
+          return resolve(initialElm);
+        }
+
+        const observer = new MutationObserver(() => {
+          const elm = document.querySelector(query);
+          if (elm) {
+            observer.disconnect();
+            resolve(elm);
+          }
+        });
+
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+        });
+      });
+    }
+
+    /**
      * Finds elements in the document and assigns them a class.
      *
      * @typedef {string | Partial<AssignToQueryData>} AssignToQueryDataArg
