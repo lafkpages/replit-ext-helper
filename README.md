@@ -40,5 +40,7 @@ export class ReplitExtHelper extends EventTarget {
   getElement(query: string): Element | null;
   getElements(query: string): Element[];
   waitForElement(query: string): Promise<Element>;
+
+  get routeContainerElm(): HTMLDivElement;
 }
 ```
