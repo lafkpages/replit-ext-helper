@@ -283,6 +283,10 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
   }
 
   let forceDesktop = false;
+
+  /**
+   * @satisfies {import('./types').ReplitExtHelper}
+   */
   const api = new (class ReplitExtHelper extends EventTarget {
     constructor() {
       super();

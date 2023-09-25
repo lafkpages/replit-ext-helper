@@ -2,7 +2,7 @@ import type { ReplitSvelteComponents } from "./ui";
 
 import type { NextRouter } from "next/router";
 
-export interface ReplitExtHelper {
+export class ReplitExtHelper extends EventTarget {
   main: () => void;
   debug: boolean;
 
@@ -15,7 +15,7 @@ export interface ReplitExtHelper {
    * Wether to run `main` on the Next.js Router's
    * `routeChangeComplete` event.
    */
-  runOnRouteChange: true;
+  runOnRouteChange: boolean;
 
   /**
    * Wether the Next.js Router's `routeChangeComplete`
