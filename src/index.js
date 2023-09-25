@@ -272,7 +272,7 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
      * @returns {Element | null}
      */
     getElement(query) {
-      return document.getElementsByClassName(query)[0];
+      return document.querySelector(`.replit-ext-helper.${query}`);
     }
 
     /**
@@ -280,7 +280,9 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
      * @returns {Element[]}
      */
     getElements(query) {
-      return Array.from(document.getElementsByClassName(query));
+      return Array.from(
+        document.querySelectorAll(`.replit-ext-helper.${query}`)
+      );
     }
 
     /**
