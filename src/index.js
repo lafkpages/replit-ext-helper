@@ -385,6 +385,7 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
     /**
      * Calls `assignToQuery` with multiple queries and classes.
      * @param {Record<string, AssignToQueryDataArg | AssignToQueryDataArg[]>} obj
+     * @private
      */
     assignToQueries(obj) {
       for (const [query, data] of Object.entries(obj)) {
