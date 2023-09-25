@@ -312,6 +312,14 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
       });
     }
 
+    get routeContainerElm() {
+      const elm = document.getElementById("__next")?.children[0];
+      if (!(elm instanceof HTMLDivElement)) {
+        throw new Error("Could not find route container element");
+      }
+      return elm;
+    }
+
     /**
      * Finds elements in the document and assigns them a class.
      *
