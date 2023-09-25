@@ -264,7 +264,23 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
     if (api.runOnLoad) {
       main();
     }
+
+    if (!didHandleNextRouteChange && next) {
+      next.router.events.on("routeChangeComplete", onNextRouteChange);
+      didHandleNextRouteChange = true;
+    }
   });
+
+  let didHandleNextRouteChange = false;
+  function onNextRouteChange() {
+    if (api.runOnRouteChange) {
+      main();
+    }
+  }
+  if (next) {
+    next.router.events.on("routeChangeComplete", onNextRouteChange);
+    didHandleNextRouteChange = true;
+  }
 
   let forceDesktop = false;
   const api = {
@@ -275,6 +291,20 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
      * Wether to run `main` on page load.
      */
     runOnLoad: true,
+
+    /**
+     * Wether to run `main` on the Next.js Router's
+     * `routeChangeComplete` event.
+     */
+    runOnRouteChange: true,
+
+    /**
+     * Wether the Next.js Router's `routeChangeComplete`
+     * event has been listened to.
+     */
+    get didHandleNextRouteChange() {
+      return didHandleNextRouteChange;
+    },
 
     /**
      * @returns {boolean}
