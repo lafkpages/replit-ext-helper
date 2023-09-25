@@ -350,6 +350,22 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
       injectReplitSvelteStyles();
       this.dispatchEvent(new CustomEvent("injectreplitsveltestyles"));
     }
+
+    /**
+     * @param {string} query
+     * @returns {Element | null}
+     */
+    getElement(query) {
+      return document.getElementsByClassName(query)[0];
+    }
+
+    /**
+     * @param {string} query
+     * @returns {Element[]}
+     */
+    getElements(query) {
+      return Array.from(document.getElementsByClassName(query));
+    }
   })();
 
   try {

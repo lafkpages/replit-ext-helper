@@ -32,6 +32,9 @@ export class ReplitExtHelper extends EventTarget {
   >;
 
   injectReplitSvelteStyles(): void;
+
+  getElement(query: string): Element | null;
+  getElements(query: string): Element[];
 }
 
 export declare global {
