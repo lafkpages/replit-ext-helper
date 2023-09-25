@@ -240,6 +240,7 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
           desktopOnly: true,
         },
         "#tips": "repl-tips-container",
+        'body > div > div[role="dialog"]': "modal",
       });
 
       this.dispatchEvent(new CustomEvent("main"));
