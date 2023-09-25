@@ -288,13 +288,13 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
      */
     waitForElement(query) {
       return new Promise((resolve) => {
-        const initialElm = document.querySelector(query);
+        const initialElm = this.getElement(query);
         if (initialElm) {
           return resolve(initialElm);
         }
 
         const observer = new MutationObserver(() => {
-          const elm = document.querySelector(query);
+          const elm = this.getElement(query);
           if (elm) {
             observer.disconnect();
             resolve(elm);
