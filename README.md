@@ -10,7 +10,6 @@ A global `replitExtHelper` object is exposed. It's an object with the following 
 
 ```ts
 export class ReplitExtHelper extends EventTarget {
-  main: () => void;
   debug: boolean;
 
   /**
@@ -38,6 +37,7 @@ export class ReplitExtHelper extends EventTarget {
     any
   >;
 
+  main: () => void;
   injectReplitSvelteStyles(): void;
 
   getElement(query: string): Element | null;

@@ -3,7 +3,6 @@ import type { ReplitSvelteComponents } from "./ui";
 import type { NextRouter } from "next/router";
 
 export class ReplitExtHelper extends EventTarget {
-  main: () => void;
   debug: boolean;
 
   /**
@@ -31,6 +30,7 @@ export class ReplitExtHelper extends EventTarget {
     any
   >;
 
+  main: () => void;
   injectReplitSvelteStyles(): void;
 
   getElement(query: string): Element | null;
