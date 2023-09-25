@@ -32,10 +32,10 @@ export class ReplitExtHelper extends EventTarget {
 }
 
 export declare global {
-  var replitExtHelper: ReplitExtHelper | undefined;
-  var next:
-    | {
-        router: NextRouter;
-      }
-    | undefined;
+  interface Window {
+    replitExtHelper: ReplitExtHelper | undefined;
+    next?: {
+      router: NextRouter;
+    };
+  }
 }

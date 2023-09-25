@@ -102,8 +102,11 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
           this.main();
         }
 
-        if (!this._didHandleNextRouteChange && next) {
-          next.router.events.on("routeChangeComplete", onNextRouteChange);
+        if (!this._didHandleNextRouteChange && window.next) {
+          window.next.router.events.on(
+            "routeChangeComplete",
+            onNextRouteChange
+          );
           this._didHandleNextRouteChange = true;
         }
       });
@@ -120,8 +123,8 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
           this.main();
         }
       };
-      if (next) {
-        next.router.events.on("routeChangeComplete", onNextRouteChange);
+      if (window.next) {
+        window.next.router.events.on("routeChangeComplete", onNextRouteChange);
         this._didHandleNextRouteChange = true;
       }
 
