@@ -283,20 +283,25 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
   }
 
   let forceDesktop = false;
-  const api = {
-    main,
-    debug: false,
+  const api = new (class ReplitExtHelper extends EventTarget {
+    constructor() {
+      super();
 
-    /**
-     * Wether to run `main` on page load.
-     */
-    runOnLoad: true,
+      this.debug = false;
 
-    /**
-     * Wether to run `main` on the Next.js Router's
-     * `routeChangeComplete` event.
-     */
-    runOnRouteChange: true,
+      /**
+       * Wether to run `main` on page load.
+       */
+      this.runOnLoad = true;
+
+      /**
+       * Wether to run `main` on the Next.js Router's
+       * `routeChangeComplete` event.
+       */
+      this.runOnRouteChange = true;
+
+      this.replitSvelteComponents = replitSvelteComponents;
+    }
 
     /**
      * Wether the Next.js Router's `routeChangeComplete`
@@ -304,7 +309,7 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
      */
     get didHandleNextRouteChange() {
       return didHandleNextRouteChange;
-    },
+    }
 
     /**
      * @returns {boolean}
@@ -315,7 +320,7 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
         // @ts-expect-error - `replitDesktop` is not defined in the browser
         window.replitDesktop?.version?.length > 0
       );
-    },
+    }
 
     /**
      * @param {true | null} value
@@ -328,11 +333,20 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
       } else {
         throw new TypeError("isDesktop can only be set to true or null");
       }
-    },
+    }
 
-    replitSvelteComponents,
-    injectReplitSvelteStyles,
-  };
+    main() {
+      this.dispatchEvent(new CustomEvent("beforemain"));
+      main();
+      this.dispatchEvent(new CustomEvent("main"));
+    }
+
+    injectReplitSvelteStyles() {
+      this.dispatchEvent(new CustomEvent("beforeinjectreplitsveltestyles"));
+      injectReplitSvelteStyles();
+      this.dispatchEvent(new CustomEvent("injectreplitsveltestyles"));
+    }
+  })();
 
   try {
     if (localStorage.getItem("replit-ext-helper-debug")) {
