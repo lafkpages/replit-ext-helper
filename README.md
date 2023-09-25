@@ -9,6 +9,8 @@ Note: not for [Replit extensions](https://docs.replit.com/extensions).
 A global `replitExtHelper` object is exposed. It's an object with the following properties.
 It also extends `EventTarget` so you can listen to events on it.
 
+Note that it may have more properties than listed here, but those are not part of the public API.
+
 ```ts
 export class ReplitExtHelper extends EventTarget {
   debug: boolean;
