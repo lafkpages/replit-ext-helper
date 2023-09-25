@@ -133,6 +133,99 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
           this.debug = true;
         }
       } catch {}
+
+      /**
+       * @typedef {(string | {
+       *  query?: string,
+       *  init?: string,
+       *  textContent?: RegExp | null,
+       *  callback?: ((elm: Element) => Element | null) | null,
+       *  desktopOnly?: boolean,
+       * })[]} Query
+       * @type {Record<string, Query>}
+       * @private
+       */
+      this._queries = {
+        "avatar-dropdown-btn": ['[data-cy="avatar-dropdown-button"]'],
+        "new-repl-btn": [
+          '[data-cy="header-new-repl-btn"]',
+          {
+            query: "button",
+            textContent: /^\s*create\s+repl\s*$/i,
+          },
+          '[data-cy="sidebar-new-repl-btn"]',
+        ],
+        "copy-profile-link-btn": [
+          {
+            query: "button",
+            textContent: /^\s*copy\s+(?:profile|user)\s+(?:link|url)\s*$/i,
+          },
+        ],
+        sidebar: ["nav"],
+        "sidebar-links": [{ init: "sidebar", query: "ul" }],
+        "sidebar-link": [{ init: "sidebar", query: "ul li a" }],
+        "sidebar-bottom-links": [
+          { init: "sidebar", query: ".sidebar-bottom ul" },
+        ],
+        "sidebar-bottom-link": [
+          {
+            init: "sidebar-bottom-links",
+            query: "li a",
+          },
+        ],
+        "sidebar-help-btn": [
+          {
+            init: "sidebar",
+            query: "button",
+            textContent: /^\s*help\s*$/i,
+          },
+        ],
+        header: ["header"],
+        "header-right-btns": [{ init: "header", query: ".right > div" }],
+        "notifications-btn": [
+          {
+            init: "header-right-btns",
+            query: ":nth-child(2) button",
+          },
+        ],
+        "header-search": ['.header div[role="combobox"] input'],
+        "sidebar-toggle-btn": ['[data-cy="sidebar-toggle-btn"]'],
+        "new-repl-more-btn": ['[data-cy="sidebar-new-repl-btn"] ~ div button'],
+        "theme-select": ['[data-cy="preferences-theme-dropdown"]'],
+        "follow-btn": ['[data-cy="follow-button"]'],
+        "feed-item": ['[data-cy="feed-item-card"]'],
+        "run-repl-btn": [
+          '[data-cy="repl-viewer-run-button"], [data-cy="ws-run-btn"] button',
+        ],
+        "profile-avatar": [
+          { query: "div ~ img", callback: (elm) => elm.parentElement },
+        ],
+        "filetree-add-file-btn": ['[data-cy="filetree-add-file"]'],
+        "filetree-file": ['[data-cy="filetree-entity"]'],
+        "invite-btn": [".invite-button"],
+        "deploy-btn": [
+          {
+            init: "invite-btn",
+            callback: (elm) =>
+              elm.parentElement?.parentElement?.parentElement?.nextElementSibling?.getElementsByTagName(
+                "button"
+              )[0] ?? null,
+          },
+        ],
+        "open-chat-btn": [".open-chat-button"],
+        "ws-run-repl-btn": ['[data-cy="ws-run-btn"] button'],
+        "ws-repl-resources": [
+          '[data-cy="sidebar-section-content-resources"], #sidebar-section-header-resources',
+        ],
+        "replit-desktop": [{ query: "body", desktopOnly: true }],
+        "desktop-home-ws-pane": [{ query: "header ~ div", desktopOnly: true }],
+        "desktop-home-content": [
+          { query: "div div div:nth-child(2)", desktopOnly: true },
+        ],
+        "repl-tips-container": ["#tips"],
+        modal: ['body > div > div[role="dialog"]'],
+        "modal-submit-btn": ['.modal button[type="submit"]'],
+      };
     }
 
     /**
@@ -161,88 +254,6 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
 
     main() {
       this.dispatchEvent(new CustomEvent("beforemain"));
-
-      this.assignToQueries({
-        '[data-cy="avatar-dropdown-button"]': "avatar-dropdown-btn",
-        '[data-cy="header-new-repl-btn"]': "new-repl-btn",
-        button: [
-          {
-            classes: "new-repl-btn",
-            multiple: true,
-            textContent: /^\s*create\s+repl\s*$/i,
-          },
-          {
-            classes: "copy-profile-link-btn",
-            multiple: true,
-            textContent: /^\s*copy\s+(?:profile|user)\s+(?:link|url)\s*$/i,
-          },
-        ],
-        nav: "sidebar",
-        ".sidebar ul": "sidebar-links",
-        ".sidebar .sidebar-links li a": {
-          classes: "sidebar-link",
-          multiple: true,
-        },
-        ".sidebar .sidebar-bottom ul": "sidebar-bottom-links",
-        ".sidebar-bottom-links li a": {
-          classes: "sidebar-bottom-link",
-          multiple: true,
-        },
-        ".sidebar button": {
-          classes: "sidebar-help-btn",
-          multiple: true,
-          textContent: /^\s*help\s*$/i,
-        },
-        header: "header",
-        ".header .right > div": "header-right-btns",
-        ".header .header-right-btns :nth-child(2) button": "notifications-btn",
-        '.header div[role="combobox"] input': "header-search",
-        '[data-cy="sidebar-toggle-btn"]': "sidebar-toggle-btn",
-        '[data-cy="sidebar-new-repl-btn"]': "new-repl-btn",
-        '[data-cy="sidebar-new-repl-btn"] ~ div button': "new-repl-more-btn",
-        '[data-cy="preferences-theme-dropdown"]': "theme-select",
-        '[data-cy="follow-button"]': "follow-btn",
-        '[data-cy="feed-item-card"]': "feed-item",
-        '[data-cy="repl-viewer-run-button"]': "run-repl-btn",
-        "div ~ img": {
-          classes: "profile-avatar",
-          callback: (elm) => elm.parentElement,
-        },
-        '[data-cy="filetree-add-file"]': "filetree-add-file-btn",
-        '[data-cy="filetree-entity"]': {
-          classes: "filetree-file",
-          multiple: true,
-        },
-        ".invite-button": "invite-btn",
-        ".invite-btn": {
-          classes: "deploy-btn",
-          callback: (elm) =>
-            elm.parentElement?.parentElement?.parentElement?.nextElementSibling?.getElementsByTagName(
-              "button"
-            )[0] ?? null,
-        },
-        ".open-chat-button": "open-chat-btn",
-        '[data-cy="ws-run-btn"] button': {
-          classes: ["run-repl-btn", "ws-run-repl-btn"],
-        },
-        '[data-cy="sidebar-section-content-resources"], #sidebar-section-header-resources':
-          "ws-repl-resources",
-        body: {
-          classes: "replit-desktop",
-          desktopOnly: true,
-        },
-        "header ~ div": {
-          classes: "desktop-home-ws-pane",
-          desktopOnly: true,
-        },
-        ".desktop-home-ws-pane div div div:nth-child(2)": {
-          classes: "desktop-home-content",
-          desktopOnly: true,
-        },
-        "#tips": "repl-tips-container",
-        'body > div > div[role="dialog"]': "modal",
-        '.modal button[type="submit"]': "modal-submit-btn",
-      });
 
       this.dispatchEvent(new CustomEvent("main"));
     }
@@ -273,7 +284,7 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
      * @returns {Element | null}
      */
     getElement(query) {
-      return document.querySelector(`.replit-ext-helper.${query}`);
+      return this.getElements(query)[0] ?? null;
     }
 
     /**
@@ -281,9 +292,50 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
      * @returns {Element[]}
      */
     getElements(query) {
-      return Array.from(
-        document.querySelectorAll(`.replit-ext-helper.${query}`)
-      );
+      if (!this._queries[query]) {
+        return [];
+      }
+
+      /**
+       * @type {Element[]}
+       */
+      const elms = [];
+
+      for (const rawQuery of this._queries[query]) {
+        const query =
+          typeof rawQuery == "string" ? { query: rawQuery } : rawQuery;
+
+        if (query.desktopOnly && !this.isDesktop) {
+          continue;
+        }
+
+        const initElm =
+          (query.init ? this.getElement(query.init) : null) ||
+          document.documentElement;
+        const currentElms = query.query
+          ? Array.from(initElm.querySelectorAll(query.query))
+          : [initElm];
+
+        for (let elm of currentElms) {
+          if (query.textContent) {
+            if (!elm.textContent || !query.textContent.test(elm.textContent)) {
+              continue;
+            }
+          }
+
+          if (query.callback) {
+            const newElm = query.callback(elm);
+            if (!newElm) {
+              continue;
+            }
+            elm = newElm;
+          }
+
+          elms.push(elm);
+        }
+      }
+
+      return elms;
     }
 
     /**
@@ -391,23 +443,6 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
 
       if (this.debug) {
         console.groupEnd();
-      }
-    }
-
-    /**
-     * Calls `assignToQuery` with multiple queries and classes.
-     * @param {Record<string, AssignToQueryDataArg | AssignToQueryDataArg[]>} obj
-     * @private
-     */
-    assignToQueries(obj) {
-      for (const [query, data] of Object.entries(obj)) {
-        if (Array.isArray(data)) {
-          for (const d of data) {
-            this.assignToQuery(query, d);
-          }
-        } else {
-          this.assignToQuery(query, data);
-        }
       }
     }
   })();
