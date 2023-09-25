@@ -6,7 +6,8 @@ Note: not for [Replit extensions](https://docs.replit.com/extensions).
 
 ## API
 
-A global `replitExtHelper` object is exposed. It's an object with the following properties:
+A global `replitExtHelper` object is exposed. It's an object with the following properties.
+It also extends `EventTarget` so you can listen to events on it.
 
 ```ts
 export class ReplitExtHelper extends EventTarget {
