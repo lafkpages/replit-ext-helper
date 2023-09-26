@@ -57,17 +57,6 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
 
       this.debug = false;
 
-      /**
-       * Wether to run `main` on page load.
-       */
-      this.runOnLoad = true;
-
-      /**
-       * Wether to run `main` on the Next.js Router's
-       * `routeChangeComplete` event.
-       */
-      this.runOnRouteChange = true;
-
       this.replitSvelteComponents = {
         Avatar,
         Button,
@@ -96,37 +85,6 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
        * @private
        */
       this._forceDesktop = false;
-
-      window.addEventListener("load", () => {
-        if (this.runOnLoad) {
-          this.main();
-        }
-
-        if (!this._didHandleNextRouteChange && window.next) {
-          window.next.router.events.on(
-            "routeChangeComplete",
-            onNextRouteChange
-          );
-          this._didHandleNextRouteChange = true;
-        }
-      });
-
-      /**
-       * Wether the Next.js Router's `routeChangeComplete`
-       * event has been listened to.
-       * @private
-       */
-      this._didHandleNextRouteChange = false;
-
-      const onNextRouteChange = () => {
-        if (this.runOnRouteChange) {
-          this.main();
-        }
-      };
-      if (window.next) {
-        window.next.router.events.on("routeChangeComplete", onNextRouteChange);
-        this._didHandleNextRouteChange = true;
-      }
 
       try {
         if (localStorage.getItem("replit-ext-helper-debug")) {
