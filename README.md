@@ -34,7 +34,6 @@ export class ReplitExtHelper extends EventTarget {
     any
   >;
 
-  main: () => void;
   injectReplitSvelteStyles(): void;
 
   getElement(query: string): Element | null;

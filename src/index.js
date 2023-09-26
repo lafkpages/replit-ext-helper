@@ -252,12 +252,6 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
       }
     }
 
-    main() {
-      this.dispatchEvent(new CustomEvent("beforemain"));
-
-      this.dispatchEvent(new CustomEvent("main"));
-    }
-
     injectReplitSvelteStyles() {
       this.dispatchEvent(new CustomEvent("beforeinjectreplitsveltestyles"));
 
