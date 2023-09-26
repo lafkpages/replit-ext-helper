@@ -220,7 +220,11 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
         "replit-desktop": [{ query: "body", desktopOnly: true }],
         "desktop-home-ws-pane": [{ query: "header ~ div", desktopOnly: true }],
         "desktop-home-content": [
-          { query: "div div div:nth-child(2)", desktopOnly: true },
+          {
+            init: "desktop-home-ws-pane",
+            query: "div div div:nth-child(2)",
+            desktopOnly: true,
+          },
         ],
         "repl-tips-container": ["#tips"],
         modal: ['body > div > div[role="dialog"]'],
