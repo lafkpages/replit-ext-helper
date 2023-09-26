@@ -307,9 +307,14 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
           continue;
         }
 
-        const initElm =
-          (query.init ? this.getElement(query.init) : null) ||
-          document.documentElement;
+        const initElm = query.init
+          ? this.getElement(query.init)
+          : document.documentElement;
+
+        if (!initElm) {
+          continue;
+        }
+
         const currentElms = query.query
           ? Array.from(initElm.querySelectorAll(query.query))
           : [initElm];
