@@ -175,6 +175,7 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
         "ws-repl-resources": [
           '[data-cy="sidebar-section-content-resources"], #sidebar-section-header-resources',
         ],
+        "ws-repl-info-container": ['[data-cy="ws-repl-info-container"]'],
         "replit-desktop": [{ query: "body", desktopOnly: true }],
         "desktop-home-ws-pane": [{ query: "header ~ div", desktopOnly: true }],
         "desktop-home-ws-pane-header": [
