@@ -219,9 +219,23 @@ import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
         ],
         "replit-desktop": [{ query: "body", desktopOnly: true }],
         "desktop-home-ws-pane": [{ query: "header ~ div", desktopOnly: true }],
-        "desktop-home-content": [
+        "desktop-home-ws-pane-header": [
           {
             init: "desktop-home-ws-pane",
+            callback: (elm) => elm.firstElementChild?.firstElementChild ?? null,
+            desktopOnly: true,
+          },
+        ],
+        "desktop-home-ws-pane-content": [
+          {
+            init: "desktop-home-ws-pane-header",
+            callback: (elm) => elm.nextElementSibling,
+            desktopOnly: true,
+          },
+        ],
+        "desktop-home-content": [
+          {
+            init: "desktop-home-ws-pane-content",
             query: "div div div:nth-child(2)",
             desktopOnly: true,
           },
