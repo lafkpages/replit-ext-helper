@@ -8,3 +8,5 @@ dist
 
 # Generated types
 src/types/ui.d.ts
+
+/coverage
