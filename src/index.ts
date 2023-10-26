@@ -28,8 +28,6 @@ import ToastProvider from "@replit-svelte/ui/ToastProvider.svelte";
 // Import global Replit Svelte styles
 import globalReplitSvelteStyles from "@replit-svelte/ui/index.css";
 
-import type { ReplitSvelteComponents } from "./types/ui";
-
 export type Query = (
   | string
   | {
@@ -40,6 +38,268 @@ export type Query = (
       desktopOnly?: boolean;
     }
 )[];
+
+export { type ReplitExtHelper };
+class ReplitExtHelper extends EventTarget {
+  debug = false;
+
+  replitSvelteComponents = {
+    Avatar,
+    Button,
+    Card,
+    Checkbox,
+    ConditionalParent,
+    CreateReplModal,
+    // DocsProp,
+    FileInput,
+    Files,
+    IconButton,
+    Input,
+    Modal,
+    ModalProvider,
+    Pill,
+    Profile,
+    SearchBar,
+    Select,
+    Sidebar,
+    StatusBanner,
+    Tabs,
+    ToastProvider,
+  };
+
+  protected _forceDesktop = false;
+
+  protected _queries: Record<string, Query> = {
+    "avatar-dropdown-btn": ['[data-cy="avatar-dropdown-button"]'],
+    "new-repl-btn": [
+      '[data-cy="header-new-repl-btn"]',
+      {
+        query: "button",
+        textContent: /^\s*create\s+repl\s*$/i,
+      },
+      '[data-cy="sidebar-new-repl-btn"]',
+    ],
+    "copy-profile-link-btn": [
+      {
+        query: "button",
+        textContent: /^\s*copy\s+(?:profile|user)\s+(?:link|url)\s*$/i,
+      },
+    ],
+    sidebar: ["nav"],
+    "sidebar-links": [{ init: "sidebar", query: "ul" }],
+    "sidebar-link": [{ init: "sidebar", query: "ul li a" }],
+    "sidebar-bottom-links": [{ init: "sidebar", query: ".sidebar-bottom ul" }],
+    "sidebar-bottom-link": [
+      {
+        init: "sidebar-bottom-links",
+        query: "li a",
+      },
+    ],
+    "sidebar-help-btn": [
+      {
+        init: "sidebar",
+        query: "button",
+        textContent: /^\s*help\s*$/i,
+      },
+    ],
+    header: ["header"],
+    "header-right-btns": [{ init: "header", query: ".right > div" }],
+    "notifications-btn": [
+      {
+        init: "header-right-btns",
+        query: ":nth-child(2) button",
+      },
+    ],
+    "header-search": ['.header div[role="combobox"] input'],
+    "sidebar-toggle-btn": ['[data-cy="sidebar-toggle-btn"]'],
+    "new-repl-more-btn": ['[data-cy="sidebar-new-repl-btn"] ~ div button'],
+    "theme-select": ['[data-cy="preferences-theme-dropdown"]'],
+    "follow-btn": ['[data-cy="follow-button"]'],
+    "feed-item": ['[data-cy="feed-item-card"]'],
+    "run-repl-btn": [
+      '[data-cy="repl-viewer-run-button"], [data-cy="ws-run-btn"] button',
+    ],
+    "profile-avatar": [
+      { query: "div ~ img", callback: (elm) => elm.parentElement },
+    ],
+    "filetree-add-file-btn": ['[data-cy="filetree-add-file"]'],
+    "filetree-file": ['[data-cy="filetree-entity"]'],
+    "invite-btn": [".invite-button"],
+    "deploy-btn": [
+      {
+        init: "invite-btn",
+        callback: (elm) =>
+          elm.parentElement?.parentElement?.parentElement?.nextElementSibling?.getElementsByTagName(
+            "button"
+          )[0] ?? null,
+      },
+    ],
+    "open-chat-btn": [".open-chat-button"],
+    "ws-run-repl-btn": ['[data-cy="ws-run-btn"] button'],
+    "ws-repl-resources": [
+      '[data-cy="sidebar-section-content-resources"], #sidebar-section-header-resources',
+    ],
+    "ws-repl-info-container": ['[data-cy="ws-repl-info-container"]'],
+    "replit-desktop": [{ query: "body", desktopOnly: true }],
+    "desktop-home-ws-pane": [{ query: "header ~ div", desktopOnly: true }],
+    "desktop-home-ws-pane-header": [
+      {
+        init: "desktop-home-ws-pane",
+        callback: (elm) => elm.firstElementChild?.firstElementChild ?? null,
+        desktopOnly: true,
+      },
+    ],
+    "desktop-home-ws-pane-content": [
+      {
+        init: "desktop-home-ws-pane-header",
+        callback: (elm) => elm.nextElementSibling,
+        desktopOnly: true,
+      },
+    ],
+    "desktop-home-content": [
+      {
+        init: "desktop-home-ws-pane-content",
+        query: "div div div:nth-child(2)",
+        desktopOnly: true,
+      },
+    ],
+    "repl-tips-container": ["#tips"],
+    modal: ['body > div > div[role="dialog"]'],
+    "modal-submit-btn": ['.modal button[type="submit"]'],
+  };
+
+  constructor() {
+    super();
+
+    try {
+      if (localStorage.getItem("replit-ext-helper-debug")) {
+        this.debug = true;
+      }
+    } catch {}
+  }
+
+  get isDesktop(): boolean {
+    return (
+      this._forceDesktop ||
+      // @ts-expect-error - `replitDesktop` is not defined in the browser
+      window.replitDesktop?.version?.length > 0
+    );
+  }
+
+  set isDesktop(value: true | null) {
+    if (value === true) {
+      this._forceDesktop = true;
+    } else if (value === null) {
+      this._forceDesktop = false;
+    } else {
+      throw new TypeError("isDesktop can only be set to true or null");
+    }
+  }
+
+  injectReplitSvelteStyles() {
+    this.dispatchEvent(new CustomEvent("beforeinjectreplitsveltestyles"));
+
+    // Check if the styles have already been injected
+    if (
+      document.body.dataset.replitExtHelperReplitSvelteStylesInjected == "1"
+    ) {
+      return;
+    }
+
+    // Inject the styles
+    const style = document.createElement("style");
+    style.textContent = globalReplitSvelteStyles;
+    document.head.appendChild(style);
+
+    // Mark the styles as injected
+    document.body.dataset.replitExtHelperReplitSvelteStylesInjected = "1";
+
+    this.dispatchEvent(new CustomEvent("injectreplitsveltestyles"));
+  }
+
+  getElement(query: string): Element | null {
+    return this.getElements(query)[0] ?? null;
+  }
+
+  getElements(query: string): Element[] {
+    if (!this._queries[query]) {
+      return [];
+    }
+
+    const elms: Element[] = [];
+
+    for (const rawQuery of this._queries[query]) {
+      const query =
+        typeof rawQuery == "string" ? { query: rawQuery } : rawQuery;
+
+      if (query.desktopOnly && !this.isDesktop) {
+        continue;
+      }
+
+      const initElm = query.init
+        ? this.getElement(query.init)
+        : document.documentElement;
+
+      if (!initElm) {
+        continue;
+      }
+
+      const currentElms = query.query
+        ? Array.from(initElm.querySelectorAll(query.query))
+        : [initElm];
+
+      for (let elm of currentElms) {
+        if (query.textContent) {
+          if (!elm.textContent || !query.textContent.test(elm.textContent)) {
+            continue;
+          }
+        }
+
+        if (query.callback) {
+          const newElm = query.callback(elm);
+          if (!newElm) {
+            continue;
+          }
+          elm = newElm;
+        }
+
+        elms.push(elm);
+      }
+    }
+
+    return elms;
+  }
+
+  waitForElement(query: string) {
+    return new Promise<Element>((resolve) => {
+      const initialElm = this.getElement(query);
+      if (initialElm) {
+        return resolve(initialElm);
+      }
+
+      const observer = new MutationObserver(() => {
+        const elm = this.getElement(query);
+        if (elm) {
+          observer.disconnect();
+          resolve(elm);
+        }
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+    });
+  }
+
+  get routeContainerElm() {
+    const elm = document.getElementById("__next")?.children[0];
+    if (!(elm instanceof HTMLDivElement)) {
+      throw new Error("Could not find route container element");
+    }
+    return elm;
+  }
+}
 
 (function () {
   /**
@@ -61,278 +321,7 @@ export type Query = (
     desktopOnly: false,
   };
 
-  /**
-   * @satisfies {import('./types').ReplitExtHelper}
-   */
-  const api = new (class ReplitExtHelper extends EventTarget {
-    debug = false;
-
-    replitSvelteComponents: Record<
-      Exclude<ReplitSvelteComponents, "DocsProp">,
-      any
-    > = {
-      Avatar,
-      Button,
-      Card,
-      Checkbox,
-      ConditionalParent,
-      CreateReplModal,
-      // DocsProp,
-      FileInput,
-      Files,
-      IconButton,
-      Input,
-      Modal,
-      ModalProvider,
-      Pill,
-      Profile,
-      SearchBar,
-      Select,
-      Sidebar,
-      StatusBanner,
-      Tabs,
-      ToastProvider,
-    };
-
-    /** @protected */
-    _forceDesktop = false;
-
-    /**
-     * @protected
-     */
-    _queries: Record<string, Query> = {
-      "avatar-dropdown-btn": ['[data-cy="avatar-dropdown-button"]'],
-      "new-repl-btn": [
-        '[data-cy="header-new-repl-btn"]',
-        {
-          query: "button",
-          textContent: /^\s*create\s+repl\s*$/i,
-        },
-        '[data-cy="sidebar-new-repl-btn"]',
-      ],
-      "copy-profile-link-btn": [
-        {
-          query: "button",
-          textContent: /^\s*copy\s+(?:profile|user)\s+(?:link|url)\s*$/i,
-        },
-      ],
-      sidebar: ["nav"],
-      "sidebar-links": [{ init: "sidebar", query: "ul" }],
-      "sidebar-link": [{ init: "sidebar", query: "ul li a" }],
-      "sidebar-bottom-links": [
-        { init: "sidebar", query: ".sidebar-bottom ul" },
-      ],
-      "sidebar-bottom-link": [
-        {
-          init: "sidebar-bottom-links",
-          query: "li a",
-        },
-      ],
-      "sidebar-help-btn": [
-        {
-          init: "sidebar",
-          query: "button",
-          textContent: /^\s*help\s*$/i,
-        },
-      ],
-      header: ["header"],
-      "header-right-btns": [{ init: "header", query: ".right > div" }],
-      "notifications-btn": [
-        {
-          init: "header-right-btns",
-          query: ":nth-child(2) button",
-        },
-      ],
-      "header-search": ['.header div[role="combobox"] input'],
-      "sidebar-toggle-btn": ['[data-cy="sidebar-toggle-btn"]'],
-      "new-repl-more-btn": ['[data-cy="sidebar-new-repl-btn"] ~ div button'],
-      "theme-select": ['[data-cy="preferences-theme-dropdown"]'],
-      "follow-btn": ['[data-cy="follow-button"]'],
-      "feed-item": ['[data-cy="feed-item-card"]'],
-      "run-repl-btn": [
-        '[data-cy="repl-viewer-run-button"], [data-cy="ws-run-btn"] button',
-      ],
-      "profile-avatar": [
-        { query: "div ~ img", callback: (elm) => elm.parentElement },
-      ],
-      "filetree-add-file-btn": ['[data-cy="filetree-add-file"]'],
-      "filetree-file": ['[data-cy="filetree-entity"]'],
-      "invite-btn": [".invite-button"],
-      "deploy-btn": [
-        {
-          init: "invite-btn",
-          callback: (elm) =>
-            elm.parentElement?.parentElement?.parentElement?.nextElementSibling?.getElementsByTagName(
-              "button"
-            )[0] ?? null,
-        },
-      ],
-      "open-chat-btn": [".open-chat-button"],
-      "ws-run-repl-btn": ['[data-cy="ws-run-btn"] button'],
-      "ws-repl-resources": [
-        '[data-cy="sidebar-section-content-resources"], #sidebar-section-header-resources',
-      ],
-      "ws-repl-info-container": ['[data-cy="ws-repl-info-container"]'],
-      "replit-desktop": [{ query: "body", desktopOnly: true }],
-      "desktop-home-ws-pane": [{ query: "header ~ div", desktopOnly: true }],
-      "desktop-home-ws-pane-header": [
-        {
-          init: "desktop-home-ws-pane",
-          callback: (elm) => elm.firstElementChild?.firstElementChild ?? null,
-          desktopOnly: true,
-        },
-      ],
-      "desktop-home-ws-pane-content": [
-        {
-          init: "desktop-home-ws-pane-header",
-          callback: (elm) => elm.nextElementSibling,
-          desktopOnly: true,
-        },
-      ],
-      "desktop-home-content": [
-        {
-          init: "desktop-home-ws-pane-content",
-          query: "div div div:nth-child(2)",
-          desktopOnly: true,
-        },
-      ],
-      "repl-tips-container": ["#tips"],
-      modal: ['body > div > div[role="dialog"]'],
-      "modal-submit-btn": ['.modal button[type="submit"]'],
-    };
-
-    constructor() {
-      super();
-
-      try {
-        if (localStorage.getItem("replit-ext-helper-debug")) {
-          this.debug = true;
-        }
-      } catch {}
-    }
-
-    get isDesktop(): boolean {
-      return (
-        this._forceDesktop ||
-        // @ts-expect-error - `replitDesktop` is not defined in the browser
-        window.replitDesktop?.version?.length > 0
-      );
-    }
-
-    set isDesktop(value: true | null) {
-      if (value === true) {
-        this._forceDesktop = true;
-      } else if (value === null) {
-        this._forceDesktop = false;
-      } else {
-        throw new TypeError("isDesktop can only be set to true or null");
-      }
-    }
-
-    injectReplitSvelteStyles() {
-      this.dispatchEvent(new CustomEvent("beforeinjectreplitsveltestyles"));
-
-      // Check if the styles have already been injected
-      if (
-        document.body.dataset.replitExtHelperReplitSvelteStylesInjected == "1"
-      ) {
-        return;
-      }
-
-      // Inject the styles
-      const style = document.createElement("style");
-      style.textContent = globalReplitSvelteStyles;
-      document.head.appendChild(style);
-
-      // Mark the styles as injected
-      document.body.dataset.replitExtHelperReplitSvelteStylesInjected = "1";
-
-      this.dispatchEvent(new CustomEvent("injectreplitsveltestyles"));
-    }
-
-    getElement(query: string): Element | null {
-      return this.getElements(query)[0] ?? null;
-    }
-
-    getElements(query: string): Element[] {
-      if (!this._queries[query]) {
-        return [];
-      }
-
-      const elms: Element[] = [];
-
-      for (const rawQuery of this._queries[query]) {
-        const query =
-          typeof rawQuery == "string" ? { query: rawQuery } : rawQuery;
-
-        if (query.desktopOnly && !this.isDesktop) {
-          continue;
-        }
-
-        const initElm = query.init
-          ? this.getElement(query.init)
-          : document.documentElement;
-
-        if (!initElm) {
-          continue;
-        }
-
-        const currentElms = query.query
-          ? Array.from(initElm.querySelectorAll(query.query))
-          : [initElm];
-
-        for (let elm of currentElms) {
-          if (query.textContent) {
-            if (!elm.textContent || !query.textContent.test(elm.textContent)) {
-              continue;
-            }
-          }
-
-          if (query.callback) {
-            const newElm = query.callback(elm);
-            if (!newElm) {
-              continue;
-            }
-            elm = newElm;
-          }
-
-          elms.push(elm);
-        }
-      }
-
-      return elms;
-    }
-
-    waitForElement(query: string) {
-      return new Promise<Element>((resolve) => {
-        const initialElm = this.getElement(query);
-        if (initialElm) {
-          return resolve(initialElm);
-        }
-
-        const observer = new MutationObserver(() => {
-          const elm = this.getElement(query);
-          if (elm) {
-            observer.disconnect();
-            resolve(elm);
-          }
-        });
-
-        observer.observe(document.body, {
-          childList: true,
-          subtree: true,
-        });
-      });
-    }
-
-    get routeContainerElm() {
-      const elm = document.getElementById("__next")?.children[0];
-      if (!(elm instanceof HTMLDivElement)) {
-        throw new Error("Could not find route container element");
-      }
-      return elm;
-    }
-  })();
+  const api = new ReplitExtHelper();
 
   // Expose API globally
   Object.defineProperty(window, "replitExtHelper", {
