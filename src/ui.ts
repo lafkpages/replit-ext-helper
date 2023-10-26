@@ -7,10 +7,7 @@ function getProjectDir() {
   return joinPaths(Bun.fileURLToPath(new URL(import.meta.url)), "../../");
 }
 
-/**
- * @type {string[] | null}
- */
-let componentNamesCache = null;
+let componentNamesCache: string[] | null = null;
 
 export async function getComponentNames() {
   if (componentNamesCache) {
@@ -36,10 +33,7 @@ export async function getComponentNames() {
   return names;
 }
 
-/**
- * @type {string[] | null}
- */
-let iconNamesCache = null;
+let iconNamesCache: string[] | null = null;
 
 export async function getIconNames() {
   if (iconNamesCache) {
@@ -65,13 +59,8 @@ export async function getIconNames() {
   return names;
 }
 
-/**
- * Compiles a component from Replit Svelte to a JS module.
- * @param {string} component
- * //@param {string | null} targetNodeModules
- */
 export async function compileComponent(
-  component /* targetNodeModules = null */
+  component: string /* targetNodeModules = null */
 ) {
   const projectDir = getProjectDir();
 
@@ -96,16 +85,15 @@ export async function compileComponent(
   });
 }
 
-/**
- * @typedef {{
- *    outDir: string | null,
- *    extension: string,
- *    icons: boolean,
- *    copyOthers: boolean | string[]
- * }} CompileAllComponentsOptions
- * @param {Partial<CompileAllComponentsOptions>} opts
- */
-export async function compileAllComponents(opts = {}) {
+export type CompileAllComponentsOptions = {
+  outDir: string | null;
+  extension: string;
+  icons: boolean;
+  copyOthers: boolean | string[];
+};
+export async function compileAllComponents(
+  opts: Partial<CompileAllComponentsOptions> = {}
+) {
   const {
     outDir = null,
     extension = "svelte",
@@ -115,10 +103,10 @@ export async function compileAllComponents(opts = {}) {
 
   const components = await getComponentNames();
 
-  /**
-   * @type {Record<string, import('svelte/compiler').CompileResult>}
-   */
-  const compiledComponents = {};
+  const compiledComponents: Record<
+    string,
+    import("svelte/compiler").CompileResult
+  > = {};
 
   for (const component of components) {
     compiledComponents[component] = await compileComponent(component);
