@@ -1,4 +1,4 @@
-import { getComponentNames } from "../ui";
+import { getComponentNames, getIconNames } from "../ui";
 
 import { expect, test } from "bun:test";
 
@@ -20,4 +20,24 @@ test("[ui] getComponentNames (peek)", async () => {
   expect(componentNamesPeek).toBeArray();
   expect(componentNamesPeek).not.toBeEmpty();
   expect(componentNamesPeek).toContain("Button");
+}, 1);
+
+test("[ui] getIconNames", async () => {
+  const iconNames = await getIconNames();
+
+  expect(iconNames).toBeArray();
+  expect(iconNames).not.toBeEmpty();
+  expect(iconNames).toContain("Plus");
+});
+
+test("[ui] getIconNames (peek)", async () => {
+  // Since getIconNames gets cached after the first call, we can
+  // test the peek functionality by calling it twice.
+
+  const iconNamesPromise = getIconNames();
+  const iconNamesPeek = Bun.peek(iconNamesPromise);
+
+  expect(iconNamesPeek).toBeArray();
+  expect(iconNamesPeek).not.toBeEmpty();
+  expect(iconNamesPeek).toContain("Plus");
 }, 1);
