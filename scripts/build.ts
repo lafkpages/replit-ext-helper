@@ -10,8 +10,6 @@ const bundle = await Bun.build({
   entrypoints: ["src/index.ts"],
   minify: true,
   loader: {
-    ".svelte": "js",
-    ".js": "js",
     ".css": "text",
   },
   target: "browser",
