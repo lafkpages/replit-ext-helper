@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/lafkpages/replit-ext-helper/graph/badge.svg?token=W1708PX42X)](https://codecov.io/gh/lafkpages/replit-ext-helper)
+
 # Replit extensions helper
 
 A helper utility for browser extensions and userscripts.
