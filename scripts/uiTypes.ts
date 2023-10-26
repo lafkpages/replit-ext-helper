@@ -1,4 +1,4 @@
-import { getComponentNames } from "../src/ui";
+import { getComponentNames } from "./ui";
 
 export async function generateUiTypes() {
   const componentNames = await getComponentNames();
