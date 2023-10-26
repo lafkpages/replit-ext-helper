@@ -5,12 +5,10 @@
   "main": "dist/index.js",
   "types": "dist/types.d.ts",
   "files": [
-    "dist",
-    "!dist/userscript.js"
+    "dist"
   ],
   "scripts": {
     "build": "bun run scripts/build.ts",
-    "build:userscript": "mkdir -p dist && rm -f dist/userscript.js && cp src/userscript.js dist/userscript.js && bun build src/index.js --minify >> dist/userscript.js",
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
