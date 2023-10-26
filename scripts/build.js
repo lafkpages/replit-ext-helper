@@ -16,7 +16,7 @@ await compileAllComponents({
 
 // Build the JS bundle.
 const bundle = await Bun.build({
-  entrypoints: ["src/index.js"],
+  entrypoints: ["src/index.ts"],
   minify: true,
   loader: {
     ".svelte": "js",
