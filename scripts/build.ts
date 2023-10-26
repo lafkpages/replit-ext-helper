@@ -1,18 +1,9 @@
-import { rm, mkdir, copyFile } from "fs/promises";
-import { resolve as resolvePath } from "path";
+import { rm, copyFile } from "fs/promises";
 
-import { compileAllComponents } from "./ui";
+import sveltePlugin from "../src/plugins/svelte";
 
-// Clear and create output directory.
+// Clear the dist directory.
 await rm("dist", { recursive: true, force: true });
-await mkdir("dist/ui/icons", { recursive: true });
-
-// Compile all Replit Svelte components.
-await compileAllComponents({
-  outDir: "dist/ui",
-  icons: true,
-  copyOthers: [".css"],
-});
 
 // Build the JS bundle.
 const bundle = await Bun.build({
@@ -25,18 +16,7 @@ const bundle = await Bun.build({
   },
   target: "browser",
   outdir: "dist",
-  plugins: [
-    {
-      name: "replit-svelte-to-dist",
-      setup(build) {
-        build.onResolve({ filter: /^@replit-svelte\/ui\// }, (args) => ({
-          path: resolvePath(
-            args.path.replace(/^@replit-svelte\/ui\//, `./dist/ui/`)
-          ),
-        }));
-      },
-    },
-  ],
+  plugins: [sveltePlugin],
 });
 if (!bundle.success) {
   throw new Error(
@@ -48,9 +28,6 @@ if (!bundle.success) {
       .join("\n")
   );
 }
-
-// Remove compiled components.
-await rm("dist/ui", { recursive: true, force: true });
 
 // Copy the type definitions.
 await copyFile("src/types/index.d.ts", "dist/types.d.ts");
