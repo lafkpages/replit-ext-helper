@@ -9,7 +9,7 @@
     "!dist/userscript.js"
   ],
   "scripts": {
-    "build": "bun scripts/build.js",
+    "build": "bun run scripts/build.ts",
     "build:userscript": "mkdir -p dist && rm -f dist/userscript.js && cp src/userscript.js dist/userscript.js && bun build src/index.js --minify >> dist/userscript.js",
     "prepublishOnly": "bun run build"
   },

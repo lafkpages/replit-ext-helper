@@ -1,7 +1,7 @@
 import { rm, mkdir, copyFile } from "fs/promises";
 import { resolve as resolvePath } from "path";
 
-import { compileAllComponents } from "../src/ui";
+import { compileAllComponents } from "./ui";
 
 // Clear and create output directory.
 await rm("dist", { recursive: true, force: true });
