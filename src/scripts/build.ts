@@ -1,6 +1,6 @@
 import { rm, copyFile } from "fs/promises";
 
-import sveltePlugin from "../src/plugins/svelte";
+import sveltePlugin from "../plugins/svelte";
 
 // Clear the dist directory.
 await rm("dist", { recursive: true, force: true });
@@ -27,5 +27,13 @@ if (!bundle.success) {
   );
 }
 
-// Copy the type definitions.
-await copyFile("src/types/index.d.ts", "dist/types.d.ts");
+// Build the types
+const tsc = Bun.spawn([
+  "tsc",
+  "--emitDeclarationOnly",
+  "--declaration",
+  "--outDir",
+  "dist",
+  "src/index.ts",
+]);
+await tsc.exited;

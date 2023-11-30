@@ -3,12 +3,12 @@
   "version": "0.0.7",
   "author": "LuisAFK",
   "main": "dist/index.js",
-  "types": "dist/types.d.ts",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "bun run scripts/build.ts",
+    "build": "bun run src/scripts/build.ts",
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
