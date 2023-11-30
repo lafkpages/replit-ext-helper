@@ -1,5 +1,7 @@
 /// <reference lib="dom" />
 
+import type { NextRouter } from "next/router";
+
 // TODO: glob import?
 
 // Avatar, Button, Card, Checkbox, ConditionalParent, CreateReplModal, DocsProp, FileInput, Files, IconButton, Input, Modal, ModalProvider, Pill, Profile, SearchBar, Select, Sidebar, StatusBanner, Tabs, ToastProvider
@@ -331,3 +333,12 @@ class ReplitExtHelper extends EventTarget {
     },
   });
 })();
+
+declare global {
+  interface Window {
+    replitExtHelper: ReplitExtHelper | undefined;
+    next?: {
+      router: NextRouter;
+    };
+  }
+}
