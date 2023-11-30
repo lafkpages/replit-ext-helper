@@ -1,12 +1,24 @@
 {
   "compilerOptions": {
-    "module": "ES2022",
-    "moduleResolution": "node",
-    "rootDirs": ["./src", "./scripts"],
+    "lib": ["ESNext"],
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "composite": true,
     "strict": true,
-    "checkJs": true,
-    "target": "ES2017",
-    "types": ["bun-types"]
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "types": [
+      "bun-types" // add Bun global
+    ]
   },
   "exclude": ["node_modules", "dist", "test-results"]
 }
