@@ -29,4 +29,3 @@ if (!bundle.success) {
 
 // Copy the type definitions.
 await copyFile("src/types/index.d.ts", "dist/types.d.ts");
-await copyFile("src/types/ui.d.ts", "dist/ui.d.ts");
