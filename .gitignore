@@ -7,6 +7,6 @@ dist
 /test-results
 
 # Generated types
-src/types/ui.d.ts
+*.tsbuildinfo
 
 /coverage
