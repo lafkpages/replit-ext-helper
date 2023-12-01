@@ -167,6 +167,12 @@ class ReplitExtHelper extends EventTarget {
     ],
     "repl-tips-container": ["#tips"],
     modal: ['body > div > div[role="dialog"]'],
+    "modal-form": [
+      {
+        init: "modal",
+        query: "form",
+      },
+    ],
     "modal-submit-btn": ['.modal button[type="submit"]'],
   };
 
