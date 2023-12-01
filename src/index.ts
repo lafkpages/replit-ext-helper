@@ -272,8 +272,8 @@ class ReplitExtHelper extends EventTarget {
     return elms;
   }
 
-  waitForElement(query: string) {
-    return new Promise<Element>((resolve) => {
+  waitForElement(query: string): Promise<Element> {
+    return new Promise((resolve) => {
       const initialElm = this.getElement(query);
       if (initialElm) {
         return resolve(initialElm);
